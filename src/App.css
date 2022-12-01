@@ -1,5 +1,76 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shapes {
+  width: 100%;
+}
+
+.shape1 {
+  position: absolute;
+  width: 219px;
+  height: 220px;
+  right: 0;
+  top: 31px;
+  background: rgba(255, 23, 93, 0.5);
+  filter: blur(50px);
+}
+
+.shape2 {
+  position: absolute;
+  width: 176.54px;
+  height: 176.54px;
+  left: 288px;
+  top: 50px;
+  background: linear-gradient(
+    181.16deg,
+    rgba(173, 0, 255, 0.5) -26.31%,
+    rgba(255, 92, 229, 0.5) 128.88%
+  );
+  filter: blur(50px);
+}
+.shape3 {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  left: 0;
+  top: 350px;
+  background: linear-gradient(
+    153.57deg,
+    rgba(255, 121, 23, 0.5) -24.3%,
+    rgba(255, 221, 45, 0.5) 118.14%
+  );
+  filter: blur(50px);
+}
+.shape4 {
+  position: absolute;
+  width: 156px;
+  height: 156px;
+  left: 165px;
+  top: 600px;
+  background: linear-gradient(
+    228.96deg,
+    rgba(9, 166, 255, 0.5) -18.08%,
+    rgba(83, 224, 255, 0.5) 122.67%
+  );
+  filter: blur(50px);
+  transform: rotate(-42.01deg);
+}
+.shape5 {
+  position: absolute;
+  width: 312.42px;
+  height: 312.42px;
+  right: 10%;
+  top: 500px;
+  background: linear-gradient(
+    207.54deg,
+    rgba(0, 255, 240, 0.5) -6.54%,
+    rgba(62, 255, 151, 0.5) 97.44%
+  );
+  filter: blur(50px);
+  transform: rotate(-42.37deg);
 }
 
 .App-logo {
