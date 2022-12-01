@@ -9,7 +9,7 @@ export default function Home() {
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="upload-files">
           <h3>Drag & drop files or </h3>
-          <a href="#">Browse</a>
+          <a href="/">Browse</a>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>

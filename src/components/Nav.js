@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import Compare from "../pages/Compare";
 import Home from "../pages/Home";
 import Rank from "../pages/Rank";
@@ -11,19 +11,19 @@ export default function Nav() {
       <nav className="navContainer">
         <ul className="navMenu active">
           <li>
-            <Link to="/" className="navItem">
+            <NavLink to="/" className="navItem">
               Parse
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/rank" className="navItem">
+            <NavLink to="/rank" className="navItem">
               Rank
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/compare" className="navItem">
+            <NavLink to="/compare" className="navItem">
               Compare
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>

@@ -20,25 +20,23 @@
 }
 
 .navMenu li {
-    text-align: center;
+  text-align: center;
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
 }
 
-.navMenu li:hover {
+/* .navMenu li:hover {
     border: 1px solid black;
-    padding: 0.2rem;
-    width:7rem;
-  }
+    padding: 0.5rem;
+  } */
 
-  .navContainer li .active {
-    border: 1px solid black;
-    padding: 0.2rem;
-    width:7rem;
-  }
+.navMenu li .active {
+  border: 1px solid black;
+  padding: 0.5rem;
+}
 
-  .navItem {
-    text-decoration: none;
-    color: rgba(30, 30, 30, 0.5);
-  }
+.navItem {
+  text-decoration: none;
+  color: rgba(30, 30, 30, 0.5);
+}
