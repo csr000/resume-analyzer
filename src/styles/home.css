@@ -44,14 +44,26 @@
 }
 
 .start-btn:hover {
-    background: #f1ecf5;
-    color: #3b2667;
-    border: 1px solid #3b2667;
-    transition: 0.5s ease-in;
+  background: #f1ecf5;
+  color: #3b2667;
+  border: 1px solid #3b2667;
+  transition: 0.5s ease-in;
 }
 
 .upload-text {
   margin-top: 3rem;
   font-size: 40px;
   color: rgba(30, 30, 30, 0.6);
+}
+
+.swal-modal {
+  width: 600px;
+  /* height: 350px; */
+  padding: 3rem;
+  border-radius: 25px;
+}
+
+.swal-text {
+  font-size: 30px;
+  font-weight: 700;
 }
