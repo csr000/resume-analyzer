@@ -1,0 +1,42 @@
+.navContainer {
+  display: flex;
+  width: 800px;
+  height: 80px;
+  background: rgba(255, 251, 253, 0.5);
+  border: 6px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.12),
+    inset 0px 0px 48px 5px rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(15.5px);
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 800px;
+}
+
+.navMenu li {
+  text-align: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+/* .navMenu li:hover {
+    border: 1px solid black;
+    padding: 0.5rem;
+  } */
+
+.navMenu li .active {
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+
+.navItem {
+  text-decoration: none;
+  color: rgba(30, 30, 30, 0.5);
+}
