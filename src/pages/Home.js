@@ -1,8 +1,25 @@
 import React from "react";
-import '../styles/home.css';
+import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
+import swal from "sweetalert";
 
 export default function Home() {
+  const handleChange = () => {
+    swal({
+      text: "Analyzing . . . . .",
+      timer: 3000,
+      buttons: false,
+      closeOnClickOutside: false,
+    }).then((value) => {
+      swal({
+        text: "Analyzing Complete.",
+        timer: 3000,
+        buttons: false,
+        icon: "success",
+        closeOnClickOutside: false,
+      });
+    });
+  };
   return (
     <div className="homeContainer">
       <div className="uploadContainer">
@@ -13,7 +30,9 @@ export default function Home() {
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
-      <button className="start-btn">START</button>
+      <button className="start-btn" onClick={() => handleChange()}>
+        START
+      </button>
       <h2 className="upload-text">Upload a resume to start</h2>
     </div>
   );
