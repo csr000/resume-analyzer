@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
+from typing import List, Dict, Union
 from utils import pdf_to_txt, post_to_model
 from functions.rank import get_grade
 import uvicorn
@@ -23,7 +23,7 @@ async def home():
 
 @app.post("/parse")
 async def parse(file: bytes = File(...)):
-    """get pdf, parse it and return json with a specific format.
+    """Get pdf, parse it and return json with a specific format.
 
     Args:
         file (bytes, optional): resume pdf. Defaults to File(...).
@@ -57,7 +57,17 @@ async def parse(file: bytes = File(...)):
 
 
 @app.post("/rank")
-async def rank_files(job_description: str, files: List[UploadFile]):
+async def rank(job_description: str, files: List[UploadFile]) -> List[Dict[str, Union[str, float]]]:
+    """
+    Given a job description and a list of resumes, this function ranks the resumes based on how well they match the job description.
+    
+    Args:
+    - job_description (str): A string representing the job description.
+    - files (List[UploadFile]): A list of resume files as UploadFile objects.
+    
+    Returns:
+    - List[Dict[str, Union[str, float]]]: A list of dictionaries, where each dictionary contains the grade (float) and the file name (str) of a resume.
+    """
     grades = []
     for file in files:
         pdf_bytes = await file.read()
