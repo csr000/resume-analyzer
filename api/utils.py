@@ -1,5 +1,12 @@
-import fitz, requests
+import fitz
 from fastapi import HTTPException
+import openai
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+openai.api_key = os.environ.get("API_KEY")
+
 
 def pdf_to_txt(file: bytes) -> str:
     """Convert a pdf file to text.
@@ -9,7 +16,7 @@ def pdf_to_txt(file: bytes) -> str:
 
     Returns:
     str: Text extracted from the pdf file.
-    """    
+    """
     result = ""
     # Open the PDF file
     pdf_doc = fitz.open("pdf", file)
@@ -23,13 +30,31 @@ def pdf_to_txt(file: bytes) -> str:
     return result
 
 
-def post_to_gpt(text: str):
-    api_url = "https://api.example.com"
-    response = requests.post(api_url, data=text)
-
-    # check if response status code is ok
-    if response.status_code != 200:
-        raise HTTPException(status_code=response.status_code, detail=response.text)
-    return response
-
-
+def post_to_model(prompt: str):
+    """
+    Sends a request to model and returns the model's response. 
+    
+    Args:
+        prompt (str): The text prompt to send to the model.
+    
+    Returns:
+        str: The model's response to the given prompt.
+    
+    Raises:
+        HTTPException: If the request to the model is unsuccessful.
+    """
+    if response := openai.Completion.create(
+        model=os.environ.get("model"),
+        prompt=prompt,
+        temperature=0.9,
+        max_tokens=150,
+        top_p=1,
+        frequency_penalty=0.0,
+        presence_penalty=0.6,
+        stop=[" Human:", " AI:"],
+    ):
+        return response.choices[0].text
+    else:
+        raise HTTPException(
+            status_code=500, detail="Server Error, could not access model."
+        )

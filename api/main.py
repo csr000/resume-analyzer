@@ -1,12 +1,12 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
-from utils import pdf_to_txt, post_to_gpt
+from utils import pdf_to_txt, post_to_model
 from functions.rank import get_grade
-import uvicorn, json
+import uvicorn
 
 
-app = FastAPI()
+app = FastAPI(debug=True)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,7 +18,7 @@ app.add_middleware(
 
 @app.get("/")
 async def home():
-    return "running"
+    return {"message": "running"}
 
 
 @app.post("/parse")
@@ -37,13 +37,23 @@ async def parse(file: bytes = File(...)):
     """
     text = pdf_to_txt(file)
 
-    # post request to api
-    gpt_response = post_to_gpt(text)
+    stringified_structure = str(
+        {
+            "name": "<name>",
+            "email": "<email>",
+            "location": "<location>",
+            "education": "<education>",
+            "skills": "<an array of skills>",
+        }
+    )
 
-    # convert response to json
-    json_response = json.loads(gpt_response)
+    template = f"""I extracted this information from a resume pdf: 
+    {text}. 
+    Extract the necessary information and return it using the template below:
+    {stringified_structure}
+    """
 
-    return json_response
+    return post_to_model(template)
 
 
 @app.post("/rank")
@@ -58,4 +68,4 @@ async def rank_files(job_description: str, files: List[UploadFile]):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, debug=True)
+    uvicorn.run("main:app", port=8000, reload=True)
