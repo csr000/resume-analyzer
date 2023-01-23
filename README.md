@@ -1,5 +1,5 @@
 # Resume Analyzer
-Welcome to Resume Analyzer, a project that utilizes cutting-edge technology to help you analyze resumes and extract valuable information. This information can include contact information, work experience, and other key details that can help you make better hiring decisions. With Resume Analyzer, you can streamline your recruitment process and find the best candidates in no time.
+Welcome to Resume Analyzer, a project that utilizes cutting-edge technology to help you analyze resumes and extract valuable information. This information can include skills, work experience, and other key details that can help you make better hiring decisions. With Resume Analyzer, you can streamline your recruitment process and find the best candidates in no time.
 
 ## Getting Started
 Clone the repository:
