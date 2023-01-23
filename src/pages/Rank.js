@@ -63,7 +63,6 @@ export default function Rank() {
         <p className="formats">Supported formats: PDF</p>
       </div>
       <textarea value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} />
-
       <button className="start-btn" onClick={() => postData()}>
         START
       </button>
