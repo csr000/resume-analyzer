@@ -1,15 +1,14 @@
 from rake_nltk import Rake
 import spacy
 
-nlp = spacy.load(
-    "C:/Users/ricchfrvr/Downloads/en_core_web_lg-2.3.1/en_core_web_lg/en_core_web_lg-2.3.1"
-)
+nlp = spacy.load("en_core_web_lg")
 r = Rake()
+
 
 def prepare_keywords(phrase: str) -> str:
     """
     Extracts keywords from a given phrase and returns them as a string, separated by commas.
-    
+
     Args:
     phrase (str): The phrase to extract keywords from.
 
@@ -18,6 +17,7 @@ def prepare_keywords(phrase: str) -> str:
     """
     r.extract_keywords_from_text(phrase)
     return ", ".join(map(str, set(r.get_ranked_phrases())))
+
 
 def get_similarity(keywords1: str, keywords2: str):
     """Compute the similarity between two sets of keywords using spaCy's Doc.similarity method.
@@ -38,18 +38,16 @@ def get_similarity(keywords1: str, keywords2: str):
     return "{:.2f}".format(similarity)
 
 
-
 def get_grade(job_description: str, resume_content: str):
     """Calculate the grade of a resume based on its similarity to a given job description.
-    
+
     Args:
         job_description (str): The job description to compare the resume against.
         resume_content (str): The content of the resume to be graded.
-    
+
     Returns:
         str: Similarity score as a string rounded to 2 decimal points.
     """
     return get_similarity(
         prepare_keywords(job_description), prepare_keywords(resume_content)
     )
-

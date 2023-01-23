@@ -57,14 +57,16 @@ async def parse(file: bytes = File(...)):
 
 
 @app.post("/rank")
-async def rank(job_description: str, files: List[UploadFile]) -> List[Dict[str, Union[str, float]]]:
+async def rank(
+    job_description: str, files: List[UploadFile]
+) -> List[Dict[str, Union[str, float]]]:
     """
     Given a job description and a list of resumes, this function ranks the resumes based on how well they match the job description.
-    
+
     Args:
     - job_description (str): A string representing the job description.
     - files (List[UploadFile]): A list of resume files as UploadFile objects.
-    
+
     Returns:
     - List[Dict[str, Union[str, float]]]: A list of dictionaries, where each dictionary contains the grade (float) and the file name (str) of a resume.
     """
@@ -75,6 +77,43 @@ async def rank(job_description: str, files: List[UploadFile]) -> List[Dict[str, 
         grade = get_grade(job_description, resume_content)
         grades.append({"grade": grade, "file": file.filename})
     return grades
+
+
+@app.post("/compare")
+async def compare(job_description: str, files: List[UploadFile]) -> str:
+    """
+    This function compares resumes against a given job description.
+
+    Args:
+        job_description (str): The job description to compare against
+        files (List[UploadFile]): A list of UploadFile objects representing the resumes to be compared
+
+    Returns:
+        str: A string containing a summary of each resume and a comparison against the job description.
+    """
+
+    resumes = []
+    for file in files:
+        pdf_bytes = await file.read()
+        resume_content = pdf_to_txt(pdf_bytes)
+        resumes.append(resume_content)
+
+    stringified_structure = str(
+        {
+            "resume1": "<resume 1>",
+            "resume2": "<resume 2>",
+            "compare": "<comparing the resumes against the job description>",
+        }
+    )
+
+    template = f"""I have an array of {len(resumes)} resumes extracted from pdfs. 
+    Using this template: {stringified_structure}, 
+    Write a summary about each resume and compare them against this Job description: {job_description}.
+    Choose which of the resumes fits best. These as the resumes: {resumes}.
+    Return the template.
+    """
+
+    return post_to_model(template)
 
 
 if __name__ == "__main__":

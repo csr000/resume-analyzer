@@ -47,12 +47,13 @@ def post_to_model(prompt: str):
         model=os.environ.get("model"),
         prompt=prompt,
         temperature=0.9,
-        max_tokens=150,
+        max_tokens=1500,
         top_p=1,
         frequency_penalty=0.0,
         presence_penalty=0.6,
         stop=[" Human:", " AI:"],
     ):
+        print(response.choices[0].text)
         return response.choices[0].text
     else:
         raise HTTPException(
