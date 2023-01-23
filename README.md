@@ -20,7 +20,11 @@ Install the dependencies for the FastAPI backend:
 cd api
 pip install -r requirements.txt
 ~~~
-
+Create a .env file and paste this: (*NB: sk-xxxxxxxxxx is supposed to be your secret key to the model)*
+~~~
+API_KEY=sk-xxxxxxxxxx 
+model=text-davinci-003
+~~~
 Run the FastAPI development server:
 ~~~
 python main.py
