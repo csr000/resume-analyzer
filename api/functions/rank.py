@@ -1,7 +1,9 @@
+import os, spacy
 from rake_nltk import Rake
-import spacy
 
-nlp = spacy.load("en_core_web_lg")
+en_core_web_lg = os.path.join(os.path.dirname(__file__), 'en_core_web_lg-2.3.1/en_core_web_lg/en_core_web_lg-2.3.1')
+
+nlp = spacy.load(en_core_web_lg)
 r = Rake()
 
 
