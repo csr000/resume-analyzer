@@ -23,7 +23,9 @@ export default function Compare() {
   return (
     <div className="compareContainer">
       <UploadContainer />
-      <button className="start-btn" onClick={() => handleChange()}>START</button>
+      <button className="start-btn" onClick={() => handleChange()}>
+        START
+      </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
     </div>
   );

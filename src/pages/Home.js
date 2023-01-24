@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/home.css';
+import "../styles/home.css";
 import UploadContainer from "../components/uploadContainer";
 import swal from "sweetalert";
 
@@ -23,7 +23,9 @@ export default function Home() {
   return (
     <div className="homeContainer">
       <UploadContainer />
-      <button className="start-btn" onClick={() => handleChange()}>START</button>
+      <button className="start-btn" onClick={() => handleChange()}>
+        START
+      </button>
       <h2 className="upload-text">Upload a resume to start</h2>
     </div>
   );
