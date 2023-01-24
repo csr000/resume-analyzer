@@ -23,4 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 null.txt
 api/.env
-api/__pycache__/*
+**/__pycache__/
+**/en_core_web_lg-2.3.1/
