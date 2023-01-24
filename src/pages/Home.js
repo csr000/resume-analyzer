@@ -5,6 +5,8 @@ import { BsCloudUpload } from "react-icons/bs";
 
 export default function Home() {
   const [formData, setFormData] = useState();
+  const [pdfUrl, setPdfUrl] = useState(null);
+
   const postData = () => {
     const query = new URLSearchParams();
 
@@ -28,6 +30,8 @@ export default function Home() {
   const handleFileSelect = (event) => {
     let formData = new FormData();
     formData.append("file", event.target.files[0]);
+    const pdfUrl = URL.createObjectURL(formData.get("file"));
+    setPdfUrl(pdfUrl);
     setFormData(formData);
   };
 
@@ -42,6 +46,7 @@ export default function Home() {
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
+      <embed src={pdfUrl} width="500" height="700" type="application/pdf" />
       <button className="start-btn" onClick={() => postData()}>
         START
       </button>
