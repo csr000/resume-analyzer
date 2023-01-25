@@ -3,8 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Union
 from utils import pdf_to_txt, post_to_model
 from functions.rank import get_grade
-import uvicorn
+import uvicorn, json
+from starlette.responses import JSONResponse
 
+# TODO update docstring of parse
+# TODO update docstring of compare
 
 app = FastAPI(debug=True)
 app.add_middleware(
@@ -50,10 +53,9 @@ async def parse(file: bytes = File(...)):
     template = f"""I extracted this information from a resume pdf: 
     {text}. 
     Extract the necessary information and return it using the template below:
-    {stringified_structure}
+    {stringified_structure}. Make sure its a valid json and each key value is enclosed in double quotes.
     """
-
-    return post_to_model(template)
+    return json.loads(post_to_model(template))
 
 
 @app.post("/rank")
@@ -110,10 +112,10 @@ async def compare(job_description: str, files: List[UploadFile]) -> str:
     Using this template: {stringified_structure}, 
     Write a summary about each resume and compare them against this Job description: {job_description}.
     Choose which of the resumes fits best. These as the resumes: {resumes}.
-    Return the template.
+    Return the template and Make sure its a valid json and each key value is enclosed in double quotes.
     """
 
-    return post_to_model(template)
+    return json.loads(post_to_model(template))
 
 
 if __name__ == "__main__":
