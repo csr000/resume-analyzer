@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/home.css";
-import swal from "sweetalert";
+// import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
 
 export default function Home() {
