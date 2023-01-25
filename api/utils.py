@@ -30,7 +30,7 @@ def pdf_to_txt(file: bytes) -> str:
     return result
 
 
-def post_to_model(prompt: str):
+def post_to_model(prompt: str) -> str:
     """
     Sends a request to model and returns the model's response. 
     
