@@ -6,6 +6,7 @@
 
 .shapes {
   width: 100%;
+  min-height:100%;
 }
 
 .shape1 {
@@ -63,7 +64,7 @@
   width: 312.42px;
   height: 312.42px;
   right: 10%;
-  top: 500px;
+  bottom:0%;
   background: linear-gradient(
     207.54deg,
     rgba(0, 255, 240, 0.5) -6.54%,
