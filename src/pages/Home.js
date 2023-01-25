@@ -6,7 +6,11 @@ import { BsCloudUpload } from "react-icons/bs";
 export default function Home() {
   const [formData, setFormData] = useState();
   const [pdfUrl, setPdfUrl] = useState(null);
-  const [user, setUser] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
+  const [education, setEducation] = useState("");
+  const [skills, setSkills] = useState("");
   const fileInput = useRef(null);
   const [click, setClick] = useState(false);
 
@@ -25,7 +29,11 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        setUser(data);
+        setName(data.name);
+        setEmail(data.email);
+        setLocation(data.location);
+        setEducation(data.education);
+        setSkills(data.skills);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -76,10 +84,10 @@ export default function Home() {
             Resume Analysis
           </h3>
           <div className="w-4/6 items-start">
-            <p className="text-xl">Name - </p>
-            <p className="text-xl mt-2">Mail - </p>
-            <p className="text-xl mt-2">Location - </p>
-            <p className="text-xl mt-2">Education - </p>
+            <p className="text-xl">Name : {name}</p>
+            <p className="text-xl mt-2">Mail : {email}</p>
+            <p className="text-xl mt-2">Location : {location} </p>
+            <p className="text-xl mt-2">Education : {education} </p>
           </div>
           <div className="w-4/6 items-start">
             <h4
@@ -88,9 +96,9 @@ export default function Home() {
             >
               Relevant Keywords
             </h4>
+            <div>{skills}</div>
           </div>
         </div>
-        <p>{user}</p>
       </div>
     </div>
   );
