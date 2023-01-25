@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../styles/home.css";
 // import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
 
 export default function Home() {
   const [formData, setFormData] = useState();
@@ -10,7 +11,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [education, setEducation] = useState("");
-  const [skills, setSkills] = useState("");
+  const [skills, setSkills] = useState([]);
   const fileInput = useRef(null);
   const [click, setClick] = useState(false);
 
@@ -80,23 +81,44 @@ export default function Home() {
       <div className={click ? "nav-menu active" : "nav-menu"}>
         <div className=" flex flex-col items-center justify-center mt-60">
           <embed src={pdfUrl} width="900" height="900" type="application/pdf" />
-          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
+          <h3 className="font-bold text-5xl mt-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>
-          <div className="w-4/6 items-start">
-            <p className="text-xl">Name : {name}</p>
-            <p className="text-xl mt-2">Mail : {email}</p>
-            <p className="text-xl mt-2">Location : {location} </p>
-            <p className="text-xl mt-2">Education : {education} </p>
+          <div className="w-4/6 items-start mt-10">
+            <div className="flex flex-row items-center">
+              <p className="text-lg font-bold">Name:</p>
+              <p className="ml-2">{name}</p>
+            </div>
+
+            <div className="flex flex-row items-center mt-1">
+              <p className="text-lg font-bold">Mail:</p>
+              <p className="ml-2">{email}</p>
+            </div>
+
+            <div className="flex flex-row items-center mt-1">
+              <p className="text-lg font-bold">Location:</p>
+              <p className="ml-2">{location}</p>
+            </div>
+
+            <div className="flex flex-row mt-1">
+              <p className="text-lg font-bold">Education:</p>
+              <p className="mt-1 ml-2">{education}</p>
+            </div>
           </div>
           <div className="w-4/6 items-start">
-            <h4
-              className="font-bold text-2xl mt-10"
-              style={{ color: "#8F8F8F" }}
-            >
+            <h4 className="font-bold text-2xl mt-10 text-gray-700">
               Relevant Keywords
             </h4>
-            <div>{skills}</div>
+            <div className="flex flex-row flex-wrap gap-6 mt-4">
+              {skills.map((item) => {
+                return (
+                  <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
+                    <p className="text-sm">{item}</p>
+                    <AiOutlineClose />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

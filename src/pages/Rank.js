@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../styles/rank.css";
 // import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
@@ -6,6 +6,7 @@ import { BsCloudUpload } from "react-icons/bs";
 export default function Rank() {
   const [jobDesc, setJobDesc] = useState("");
   const [formData, setFormData] = useState();
+  const fileInput = useRef(null);
   const postData = () => {
     // swal({
     //   text: "Analyzing . . . . .",
@@ -57,12 +58,19 @@ export default function Rank() {
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="upload-files">
           <h3>Drag & drop files or </h3>
-          <input type="file" multiple={true} onChange={handleFileSelect} />
-          {/* <button onClick={handleFileSelect}>Browse</button> */}
+          <input type="file" multiple={true} onChange={handleFileSelect} ref={fileInput}
+            style={{ display: "none" }} />
+          <button
+            onClick={() => fileInput.current.click()}
+            className="border-0 bg-transparent underline"
+            style={{ color: "#483EA8" }}
+          >
+            Browse
+          </button>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
-      <textarea value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} />
+      <textarea value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} className="border" />
       <button className="start-btn" onClick={() => postData()}>
         START
       </button>
