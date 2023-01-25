@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../styles/home.css";
 // import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
@@ -6,6 +6,8 @@ import { BsCloudUpload } from "react-icons/bs";
 export default function Home() {
   const [formData, setFormData] = useState();
   const [pdfUrl, setPdfUrl] = useState(null);
+  const [user, setUser] = useState([]);
+  const fileInput = useRef(null)
 
   const postData = () => {
     const query = new URLSearchParams();
@@ -21,6 +23,7 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        setUser(data)
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -41,16 +44,17 @@ export default function Home() {
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="upload-files">
           <h3>Drag & drop files or </h3>
-          <input type="file" onChange={handleFileSelect} />
-          {/* <button onClick={handleFileSelect}>Browse</button> */}
+          <input type="file" onChange={handleFileSelect} ref={fileInput} style={{ display: 'none' }} />
+          <button onClick={() => fileInput.current.click()} className="border-0 bg-transparent underline" style={{color:'#483EA8'}}>Browse</button>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
-      <embed src={pdfUrl} width="500" height="700" type="application/pdf" />
-      <button className="start-btn" onClick={() => postData()}>
+      <button  onClick={() => postData()} className="font-extrabold rounded-full">
         START
       </button>
       <h2 className="upload-text">Upload a resume to start</h2>
+      <embed src={pdfUrl} width="500" height="700" type="application/pdf" className="mt-10" />
+      <p>{user}</p>
     </div>
   );
 }

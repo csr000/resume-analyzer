@@ -43,12 +43,12 @@
   cursor: pointer;
 }
 
-.start-btn:hover {
+/* .start-btn:hover {
   background: #f1ecf5;
   color: #3b2667;
   border: 1px solid #3b2667;
   transition: 0.5s ease-in;
-}
+} */
 
 .upload-text {
   margin-top: 3rem;
