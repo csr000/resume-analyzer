@@ -82,7 +82,7 @@ async def rank(
 
 
 @app.post("/compare")
-async def compare(job_description: str, files: List[UploadFile]) -> str:
+async def compare(job_description: str, files: List[UploadFile]):
     """
     This function compares resumes against a given job description.
 
