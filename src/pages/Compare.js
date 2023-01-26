@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
 
 export default function Compare() {
   const [jobDesc, setJobDesc] = useState("");
   const [formData, setFormData] = useState();
+  const fileInput = useRef(null);
+  const [resume1, setResume1] = useState([]);
+  const [resume2, setResume2] = useState([]);
+  const [compare, setCompare] = useState([]);
+  const [click, setClick] = useState(false);
   const postData = () => {
+    setClick(!click);
     // swal({
     //   text: "Analyzing . . . . .",
     //   timer: 3000,
@@ -35,6 +41,9 @@ export default function Compare() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        setResume1(data.resume1);
+        setResume2(data.resume2);
+        setCompare(data.compare);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -61,16 +70,64 @@ export default function Compare() {
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="upload-files">
           <h3>Drag & drop files or </h3>
-          <input type="file" multiple={true} onChange={handleFileSelect} />
-          {/* <button onClick={handleFileSelect}>Browse</button> */}
+          <input
+            type="file"
+            multiple={true}
+            onChange={handleFileSelect}
+            ref={fileInput}
+            style={{ display: "none" }}
+          />
+          <button
+            onClick={() => fileInput.current.click()}
+            className="border-0 bg-transparent underline"
+            style={{ color: "#483EA8" }}
+          >
+            Browse
+          </button>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>{" "}
-      <textarea value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} />
-      <button className="start-btn" onClick={() => postData()}>
+      <div className="w-full flex-col flex items-center mt-10">
+        <textarea
+          value={jobDesc}
+          onChange={(e) => setJobDesc(e.target.value)}
+          placeholder="PLEASE KEY IN JOB DESCRIPTION AND CLICK ON THE BUTTON TO RANK YOUR RESUMES"
+          className="border mt-5 w-1/2 h-48 outline-none p-5"
+        />
+      </div>
+      <button
+        className="start-btn font-extrabold rounded-full"
+        onClick={() => postData()}
+      >
         START
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
+      <div className={click ? "nav-menu active" : "nav-menu"}>
+        <div className=" flex flex-col mt-30 w-3/5">
+          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
+            Final Result
+          </h3>
+          <p className="text-sm text-gray-300">Best suited to least suited</p>
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{resume1}</p>
+          </div>
+
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{resume2}</p>
+          </div>
+        </div>
+      </div>
+      <div className={click ? "nav-menu active" : "nav-menu"}>
+        <div className=" flex flex-col mt-30 w-3/5">
+          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
+            Comparison
+          </h3>
+          {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{compare}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
