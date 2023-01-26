@@ -2,11 +2,14 @@ import React, { useState, useRef } from "react";
 import "../styles/rank.css";
 // import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
+import MUIDataTable from "mui-datatables";
 
 export default function Rank() {
   const [jobDesc, setJobDesc] = useState("");
   const [formData, setFormData] = useState();
   const fileInput = useRef(null);
+  const [resumeData, setResumeData] = useState([]);
+
   const postData = () => {
     // swal({
     //   text: "Analyzing . . . . .",
@@ -37,6 +40,7 @@ export default function Rank() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        setResumeData(data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -52,14 +56,44 @@ export default function Rank() {
     setFormData(formData);
   };
 
+  const columns = [
+    {
+      name: "file",
+      label: "Name",
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: "grade",
+      label: "Rank Score",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+  ];
+
+  const options = {
+    responsive: "vertical",
+    filterType: "checkbox",
+    searchAlwaysOpen: true,
+  };
+
   return (
     <div className="rankContainer">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="upload-files">
           <h3>Drag & drop files or </h3>
-          <input type="file" multiple={true} onChange={handleFileSelect} ref={fileInput}
-            style={{ display: "none" }} />
+          <input
+            type="file"
+            multiple={true}
+            onChange={handleFileSelect}
+            ref={fileInput}
+            style={{ display: "none" }}
+          />
           <button
             onClick={() => fileInput.current.click()}
             className="border-0 bg-transparent underline"
@@ -70,11 +104,30 @@ export default function Rank() {
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
-      <textarea value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} className="border" />
-      <button className="start-btn" onClick={() => postData()}>
+      <div className="w-full flex-col flex items-center mt-10">
+        <textarea
+          value={jobDesc}
+          onChange={(e) => setJobDesc(e.target.value)}
+          placeholder="PLEASE KEY IN JOB DESCRIPTION AND CLICK ON THE BUTTON TO RANK YOUR RESUMES"
+          className="border mt-5 w-1/2 h-48 outline-none p-5"
+        />
+      </div>
+      <button
+        className="start-btn font-extrabold rounded-full"
+        onClick={() => postData()}
+      >
         START
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
+
+      <div className="w-11/12 mt-10 pb-20">
+        <MUIDataTable
+          title={"RANK ORDER"}
+          data={resumeData}
+          columns={columns}
+          options={options}
+        />
+      </div>
     </div>
   );
 }
