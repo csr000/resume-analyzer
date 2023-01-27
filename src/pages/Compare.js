@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { postData } from "../utils";
+import swal from "sweetalert";
 
 export default function Compare() {
   const [jobDesc, setJobDesc] = useState("");
@@ -11,33 +12,10 @@ export default function Compare() {
   const [resume2, setResume2] = useState();
   const [compare, setCompare] = useState();
   const [showOutput, setShowOutput] = useState(false);
+  const [fileName, setFileName] = useState("");
+
 
   const queries = [{ key: "job_description", value: jobDesc }];
-
-  console.log({resume1})
-
-  // const query = new URLSearchParams();
-  // query.append("job_description", jobDesc);
-
-  // for (const [key, value] of formData.entries()) {
-  //   console.log(key + ": " + value);
-  // }
-
-  // fetch("http://127.0.0.1:8000/compare?" + query, {
-  //   method: "POST",
-  //   body: formData,
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     console.log("Success:", data);
-      // setResume1(data.resume1);
-      // setResume2(data.resume2);
-      // setCompare(data.compare);
-  //     scrollToSection("output");
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:", error);
-  //   });
 
   const handleFileSelect = (event) => {
     if (event.target.files.length > 2) {
@@ -51,16 +29,18 @@ export default function Compare() {
       }
       setFormData(formData);
     }
+    setFileName(fileInput.current.files.length);
   };
 
   return (
     <div className="compareContainer">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
-        <div className="upload-files">
-          <h3>Drag & drop files or </h3>
+        <div className="flex flex-col gap-5">
+          {/* <h3>Drag & drop files or </h3> */}
           <input
             type="file"
+            accept="application/pdf"
             multiple={true}
             onChange={handleFileSelect}
             ref={fileInput}
@@ -68,14 +48,15 @@ export default function Compare() {
           />
           <button
             onClick={() => fileInput.current.click()}
-            className="border-0 bg-transparent underline"
+            className="border-0 bg-transparent underline text-3xl"
             style={{ color: "#483EA8" }}
           >
             Browse
           </button>
+          <span id="pdfName">Selected Files: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
-      </div>{" "}
+      </div>
       <div className="w-full flex-col flex items-center mt-10">
         <textarea
           value={jobDesc}
@@ -87,12 +68,22 @@ export default function Compare() {
       <button
         className="start-btn font-extrabold rounded-full"
         onClick={() => {
+          if (fileName === "") {
+            swal("Please select resumes!", {
+              icon: "error",
+            });
+          } else if (jobDesc === "") {
+            swal("Please enter a job description!", {
+              icon: "error",
+            });
+          } else {
           setShowOutput(true);
           postData("http://127.0.0.1:8000/compare?", queries, formData, {
             setResume1,
             setResume2,
             setCompare,
           });
+        }
         }}
       >
         START
@@ -112,7 +103,7 @@ export default function Compare() {
             <p>{resume2}</p>
           </div>
         </div>
-        <div className=" flex flex-col mt-30 w-3/5">
+        <div className="flex flex-col mt-30 w-3/5">
           <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
             Comparison
           </h3>
