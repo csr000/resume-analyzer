@@ -1,9 +1,8 @@
 import React, { useState, useRef } from "react";
 import "../styles/rank.css";
-// import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
-import { scrollToSection } from "../utils";
+import { postData } from "../utils";
 
 export default function Rank() {
   const [jobDesc, setJobDesc] = useState("");
@@ -11,43 +10,7 @@ export default function Rank() {
   const fileInput = useRef(null);
   const [resumeData, setResumeData] = useState([]);
 
-  const postData = () => {
-    // swal({
-    //   text: "Analyzing . . . . .",
-    //   timer: 3000,
-    //   buttons: false,
-    //   closeOnClickOutside: false,
-    // }).then((value) => {
-    //   swal({
-    //     text: "Analyzing Complete.",
-    //     timer: 3000,
-    //     buttons: false,
-    //     icon: "success",
-    //     closeOnClickOutside: false,
-    //   });
-    // });
-
-    const query = new URLSearchParams();
-    query.append("job_description", jobDesc);
-
-    for (const [key, value] of formData.entries()) {
-      console.log(key + ": " + value);
-    }
-
-    fetch("http://127.0.0.1:8000/rank?" + query, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        setResumeData(data);
-        scrollToSection("output");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+  const queries = [{ key: "job_description", value: jobDesc }];
 
   const handleFileSelect = (event) => {
     let files = event.target.files;
@@ -116,7 +79,11 @@ export default function Rank() {
       </div>
       <button
         className="start-btn font-extrabold rounded-full"
-        onClick={() => postData()}
+        onClick={() =>
+          postData("http://127.0.0.1:8000/rank?", queries, formData, {
+            setResumeData,
+          })
+        }
       >
         START
       </button>

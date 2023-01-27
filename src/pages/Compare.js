@@ -1,56 +1,43 @@
 import React, { useState, useRef } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
-import { scrollToSection } from "../utils";
+import { postData } from "../utils";
 
 export default function Compare() {
   const [jobDesc, setJobDesc] = useState("");
   const [formData, setFormData] = useState();
   const fileInput = useRef(null);
-  const [resume1, setResume1] = useState([]);
-  const [resume2, setResume2] = useState([]);
-  const [compare, setCompare] = useState([]);
-  const [click, setClick] = useState(false);
-  const postData = () => {
-    setClick(!click);
-    // swal({
-    //   text: "Analyzing . . . . .",
-    //   timer: 3000,
-    //   buttons: false,
-    //   closeOnClickOutside: false,
-    // }).then((value) => {
-    //   swal({
-    //     text: "Analyzing Complete.",
-    //     timer: 3000,
-    //     buttons: false,
-    //     icon: "success",
-    //     closeOnClickOutside: false,
-    //   });
-    // });
+  const [resume1, setResume1] = useState();
+  const [resume2, setResume2] = useState();
+  const [compare, setCompare] = useState();
+  const [showOutput, setShowOutput] = useState(false);
 
-    const query = new URLSearchParams();
-    query.append("job_description", jobDesc);
+  const queries = [{ key: "job_description", value: jobDesc }];
 
-    for (const [key, value] of formData.entries()) {
-      console.log(key + ": " + value);
-    }
+  console.log({resume1})
 
-    fetch("http://127.0.0.1:8000/compare?" + query, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        setResume1(data.resume1);
-        setResume2(data.resume2);
-        setCompare(data.compare);
-        scrollToSection("output");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+  // const query = new URLSearchParams();
+  // query.append("job_description", jobDesc);
+
+  // for (const [key, value] of formData.entries()) {
+  //   console.log(key + ": " + value);
+  // }
+
+  // fetch("http://127.0.0.1:8000/compare?" + query, {
+  //   method: "POST",
+  //   body: formData,
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log("Success:", data);
+      // setResume1(data.resume1);
+      // setResume2(data.resume2);
+      // setCompare(data.compare);
+  //     scrollToSection("output");
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error:", error);
+  //   });
 
   const handleFileSelect = (event) => {
     if (event.target.files.length > 2) {
@@ -99,42 +86,39 @@ export default function Compare() {
       </div>
       <button
         className="start-btn font-extrabold rounded-full"
-        onClick={() => postData()}
+        onClick={() => {
+          setShowOutput(true);
+          postData("http://127.0.0.1:8000/compare?", queries, formData, {
+            setResume1,
+            setResume2,
+            setCompare,
+          });
+        }}
       >
         START
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
-      <div className={click ? "nav-menu active" : "nav-menu"}>
-        <div id="output">
-          <div className=" flex flex-col mt-30 w-3/5">
-            <h3
-              className="font-bold text-3xl mt-10"
-              style={{ color: "#3B2667" }}
-            >
-              Final Result
-            </h3>
-            <p className="text-sm text-gray-300">Best suited to least suited</p>
-            <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-              <p>{resume1}</p>
-            </div>
-
-            <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-              <p>{resume2}</p>
-            </div>
+      <div className={showOutput ? "output active" : "output"} id="output">
+        <div className=" flex flex-col mt-30 w-3/5">
+          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
+            Final Result
+          </h3>
+          {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{resume1}</p>
           </div>
-          <div className={click ? "nav-menu active" : "nav-menu"}>
-            <div className=" flex flex-col mt-30 w-3/5">
-              <h3
-                className="font-bold text-3xl mt-10"
-                style={{ color: "#3B2667" }}
-              >
-                Comparison
-              </h3>
-              {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
-              <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-                <p>{compare}</p>
-              </div>
-            </div>
+
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{resume2}</p>
+          </div>
+        </div>
+        <div className=" flex flex-col mt-30 w-3/5">
+          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
+            Comparison
+          </h3>
+          {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{compare}</p>
           </div>
         </div>
       </div>
