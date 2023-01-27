@@ -4,14 +4,48 @@ import "../styles/rank.css";
 import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
 import { scrollToSection } from "../utils";
+import swal from "sweetalert";
 
 export default function Rank() {
   const [jobDesc, setJobDesc] = useState("");
   const [formData, setFormData] = useState();
   const fileInput = useRef(null);
   const [resumeData, setResumeData] = useState([]);
+  const [click, setClick] = useState(false);
+  const [fileName, setFileName] = useState("");
 
   const postData = () => {
+    if (fileName === "") {
+      swal("Please select resumes!", {
+        icon: "error",
+      });
+    } else if (jobDesc === "") {
+      swal("Please enter a job description!", {
+        icon: "error",
+      });
+    } else {
+      setClick(true);
+      const query = new URLSearchParams();
+      query.append("job_description", jobDesc);
+
+      for (const [key, value] of formData.entries()) {
+        console.log(key + ": " + value);
+      }
+
+      fetch("http://127.0.0.1:8000/rank?" + query, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          setResumeData(data);
+          scrollToSection("output");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
     // swal({
     //   text: "Analyzing . . . . .",
     //   timer: 3000,
@@ -26,27 +60,6 @@ export default function Rank() {
     //     closeOnClickOutside: false,
     //   });
     // });
-
-    const query = new URLSearchParams();
-    query.append("job_description", jobDesc);
-
-    for (const [key, value] of formData.entries()) {
-      console.log(key + ": " + value);
-    }
-
-    fetch("http://127.0.0.1:8000/rank?" + query, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        setResumeData(data);
-        scrollToSection("output");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   };
 
   const handleFileSelect = (event) => {
@@ -56,6 +69,7 @@ export default function Rank() {
       formData.append("files", files[i]);
     }
     setFormData(formData);
+    setFileName(fileInput.current.files.length);
   };
 
   const columns = [
@@ -87,10 +101,11 @@ export default function Rank() {
     <div className="rankContainer">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
-        <div className="upload-files">
-          <h3>Drag & drop files or </h3>
+        <div className="flex flex-col gap-5">
+          {/* <h3>Drag & drop files or </h3> */}
           <input
             type="file"
+            accept="application/pdf"
             multiple={true}
             onChange={handleFileSelect}
             ref={fileInput}
@@ -98,11 +113,12 @@ export default function Rank() {
           />
           <button
             onClick={() => fileInput.current.click()}
-            className="border-0 bg-transparent underline"
+            className="border-0 bg-transparent underline text-3xl"
             style={{ color: "#483EA8" }}
           >
             Browse
           </button>
+          <span id="pdfName">Selected Files: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
@@ -122,7 +138,7 @@ export default function Rank() {
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
 
-      <div id="output">
+      <div id="output" className={click ? "nav-menu active" : "nav-menu"}>
         <div className="w-11/12 mt-10 pb-20">
           <MUIDataTable
             title={"RANK ORDER"}
