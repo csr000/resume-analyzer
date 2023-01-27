@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import "../styles/rank.css";
 import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 import { postData } from "../utils";
 import swal from "sweetalert";
 
@@ -49,6 +51,11 @@ export default function Rank() {
     filterType: "checkbox",
     searchAlwaysOpen: true,
   };
+
+  const muiCache = createCache({
+    key: "mui-datatables",
+    prepend: true,
+  });
 
   return (
     <div className="rankContainer">
@@ -108,12 +115,14 @@ export default function Rank() {
 
       <div id="output" className={showOutput ? "output active" : "output"}>
         <div className="w-11/12 mt-10 pb-20">
-          <MUIDataTable
-            title={"RANK ORDER"}
-            data={resumeData}
-            columns={columns}
-            options={options}
-          />
+          <CacheProvider value={muiCache}>
+            <MUIDataTable
+              title={"RANK ORDER"}
+              data={resumeData}
+              columns={columns}
+              options={options}
+            />
+          </CacheProvider>
         </div>
       </div>
     </div>
