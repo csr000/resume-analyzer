@@ -3,6 +3,7 @@ import "../styles/rank.css";
 // import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
+import { scrollToSection } from "../utils";
 
 export default function Rank() {
   const [jobDesc, setJobDesc] = useState("");
@@ -41,6 +42,7 @@ export default function Rank() {
       .then((data) => {
         console.log("Success:", data);
         setResumeData(data);
+        scrollToSection("output");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -120,13 +122,15 @@ export default function Rank() {
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
 
-      <div className="w-11/12 mt-10 pb-20">
-        <MUIDataTable
-          title={"RANK ORDER"}
-          data={resumeData}
-          columns={columns}
-          options={options}
-        />
+      <div id="output">
+        <div className="w-11/12 mt-10 pb-20">
+          <MUIDataTable
+            title={"RANK ORDER"}
+            data={resumeData}
+            columns={columns}
+            options={options}
+          />
+        </div>
       </div>
     </div>
   );

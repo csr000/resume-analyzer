@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
+import { scrollToSection } from "../utils";
 
 export default function Compare() {
   const [jobDesc, setJobDesc] = useState("");
@@ -44,6 +45,7 @@ export default function Compare() {
         setResume1(data.resume1);
         setResume2(data.resume2);
         setCompare(data.compare);
+        scrollToSection("output");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -103,28 +105,36 @@ export default function Compare() {
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
       <div className={click ? "nav-menu active" : "nav-menu"}>
-        <div className=" flex flex-col mt-30 w-3/5">
-          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
-            Final Result
-          </h3>
-          <p className="text-sm text-gray-300">Best suited to least suited</p>
-          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-            <p>{resume1}</p>
-          </div>
+        <div id="output">
+          <div className=" flex flex-col mt-30 w-3/5">
+            <h3
+              className="font-bold text-3xl mt-10"
+              style={{ color: "#3B2667" }}
+            >
+              Final Result
+            </h3>
+            <p className="text-sm text-gray-300">Best suited to least suited</p>
+            <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+              <p>{resume1}</p>
+            </div>
 
-          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-            <p>{resume2}</p>
+            <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+              <p>{resume2}</p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className={click ? "nav-menu active" : "nav-menu"}>
-        <div className=" flex flex-col mt-30 w-3/5">
-          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
-            Comparison
-          </h3>
-          {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
-          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-            <p>{compare}</p>
+          <div className={click ? "nav-menu active" : "nav-menu"}>
+            <div className=" flex flex-col mt-30 w-3/5">
+              <h3
+                className="font-bold text-3xl mt-10"
+                style={{ color: "#3B2667" }}
+              >
+                Comparison
+              </h3>
+              {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
+              <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+                <p>{compare}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

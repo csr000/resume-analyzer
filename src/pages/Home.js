@@ -3,6 +3,7 @@ import "../styles/home.css";
 // import swal from "sweetalert";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
+import { scrollToSection } from "../utils";
 
 export default function Home() {
   const [formData, setFormData] = useState();
@@ -35,6 +36,7 @@ export default function Home() {
         setLocation(data.location);
         setEducation(data.education);
         setSkills(data.skills);
+        scrollToSection("output");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -79,45 +81,55 @@ export default function Home() {
       </button>
       <h2 className="upload-text">Upload a resume to start</h2>
       <div className={click ? "nav-menu active" : "nav-menu"}>
-        <div className=" flex flex-col items-center justify-center mt-60">
-          <embed src={pdfUrl} width="900" height="900" type="application/pdf" />
-          <h3 className="font-bold text-5xl mt-10" style={{ color: "#3B2667" }}>
-            Resume Analysis
-          </h3>
-          <div className="w-4/6 items-start mt-10">
-            <div className="flex flex-row items-center">
-              <p className="text-lg font-bold">Name:</p>
-              <p className="ml-2">{name}</p>
-            </div>
+        <div id="output">
+          <div className=" flex flex-col items-center justify-center mt-60">
+            <embed
+              src={pdfUrl}
+              width="900"
+              height="900"
+              type="application/pdf"
+            />
+            <h3
+              className="font-bold text-5xl mt-10"
+              style={{ color: "#3B2667" }}
+            >
+              Resume Analysis
+            </h3>
+            <div className="w-4/6 items-start mt-10">
+              <div className="flex flex-row items-center">
+                <p className="text-lg font-bold">Name:</p>
+                <p className="ml-2">{name}</p>
+              </div>
 
-            <div className="flex flex-row items-center mt-1">
-              <p className="text-lg font-bold">Mail:</p>
-              <p className="ml-2">{email}</p>
-            </div>
+              <div className="flex flex-row items-center mt-1">
+                <p className="text-lg font-bold">Mail:</p>
+                <p className="ml-2">{email}</p>
+              </div>
 
-            <div className="flex flex-row items-center mt-1">
-              <p className="text-lg font-bold">Location:</p>
-              <p className="ml-2">{location}</p>
-            </div>
+              <div className="flex flex-row items-center mt-1">
+                <p className="text-lg font-bold">Location:</p>
+                <p className="ml-2">{location}</p>
+              </div>
 
-            <div className="flex flex-row mt-1">
-              <p className="text-lg font-bold">Education:</p>
-              <p className="mt-1 ml-2">{education}</p>
+              <div className="flex flex-row mt-1">
+                <p className="text-lg font-bold">Education:</p>
+                <p className="mt-1 ml-2">{education}</p>
+              </div>
             </div>
-          </div>
-          <div className="w-4/6 items-start">
-            <h4 className="font-bold text-2xl mt-10 text-gray-700">
-              Relevant Skills
-            </h4>
-            <div className="flex flex-row flex-wrap gap-6 mt-4">
-              {skills.map((item) => {
-                return (
-                  <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
-                    <p className="text-sm">{item}</p>
-                    <AiOutlineClose />
-                  </div>
-                );
-              })}
+            <div className="w-4/6 items-start">
+              <h4 className="font-bold text-2xl mt-10 text-gray-700">
+                Relevant Skills
+              </h4>
+              <div className="flex flex-row flex-wrap gap-6 mt-4">
+                {skills.map((item) => {
+                  return (
+                    <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
+                      <p className="text-sm">{item}</p>
+                      <AiOutlineClose />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
