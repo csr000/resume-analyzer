@@ -15,6 +15,7 @@ export default function Home() {
   const [skills, setSkills] = useState([]);
   const fileInput = useRef(null);
   const [click, setClick] = useState(false);
+  const [fileName, setFileName] = useState();
 
   const postData = () => {
     setClick(!click);
@@ -49,27 +50,30 @@ export default function Home() {
     const pdfUrl = URL.createObjectURL(formData.get("file"));
     setPdfUrl(pdfUrl);
     setFormData(formData);
+    setFileName(fileInput.current.files[0].name);
   };
 
   return (
     <div className="homeContainer pb-10">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
-        <div className="upload-files">
-          <h3>Drag & drop files or </h3>
+        <div className="flex flex-col gap-5">
+          {/* <h3>Drag & drop files or </h3> */}
           <input
             type="file"
+            accept="application/pdf"
             onChange={handleFileSelect}
             ref={fileInput}
             style={{ display: "none" }}
           />
           <button
             onClick={() => fileInput.current.click()}
-            className="border-0 bg-transparent underline"
+            className="border-0 bg-transparent underline text-3xl"
             style={{ color: "#483EA8" }}
           >
             Browse
           </button>
+          <span id="pdfName">Selected File: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>

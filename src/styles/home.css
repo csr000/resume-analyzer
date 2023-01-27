@@ -29,6 +29,7 @@
 .formats {
   color: #676767;
   font-size: 16px;
+  margin-top: 5px;
 }
 
 .start-btn {
@@ -41,8 +42,6 @@
   color: #ffffff;
   cursor: pointer;
 }
-
-
 
 .upload-text {
   margin-top: 3rem;
