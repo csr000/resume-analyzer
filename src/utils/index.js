@@ -37,9 +37,11 @@ export async function postData(
     }
   }
   swal({
-    title: "Analyzing",
+    title: "Analyzing", 
     icon: "info",
     button: false,
+    closeOnClickOutside: false,
+    closeOnEsc: false,
   });
 
   try {

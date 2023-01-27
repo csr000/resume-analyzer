@@ -71,7 +71,7 @@ export default function Rank() {
           >
             Browse
           </button>
-          <span id="pdfName">Selected Files: {fileName}</span>
+          {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
@@ -95,13 +95,12 @@ export default function Rank() {
               icon: "error",
             });
           } else {
-            setShowOutput(true)
-          postData("http://127.0.0.1:8000/rank?", queries, formData, {
-            setResumeData,
-          })
-        }
-        }
-        }
+            setShowOutput(true);
+            postData("http://127.0.0.1:8000/rank?", queries, formData, {
+              setResumeData,
+            });
+          }
+        }}
       >
         START
       </button>

@@ -15,7 +15,7 @@ export default function Home() {
   const [skills, setSkills] = useState([]);
   const fileInput = useRef(null);
   const [showOutput, setShowOutput] = useState(false);
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState(null);
 
   const handleFileSelect = (event) => {
     let formData = new FormData();
@@ -46,18 +46,14 @@ export default function Home() {
           >
             Browse
           </button>
-          <span id="pdfName">Selected File Name: {fileName}</span>
+          {fileName && <span id="pdfName">Selected File Name: {fileName}</span>}
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
       <button
         className="start-btn font-extrabold rounded-full"
         onClick={() => {
-          if (fileName === null) {
-            swal("Please select a file!", {
-              icon: "error",
-            });
-          } else {
+          if (fileName) {
             setShowOutput(true);
             postData("http://127.0.0.1:8000/parse?", null, formData, {
               setName,
@@ -66,6 +62,10 @@ export default function Home() {
               setEducation,
               setSkills,
             });
+          } else {
+            swal("Please select a file!", {
+              icon: "error",
+            });
           }
         }}
       >
@@ -73,8 +73,11 @@ export default function Home() {
       </button>
       <h2 className="upload-text">Upload a resume to start</h2>
 
-      <div className={showOutput ? "output active" : "output"} id="output">
-        <div className=" flex flex-col items-center justify-center mt-60">
+      <div
+        className={showOutput ? "output active mt-60" : "output mt-60"}
+        id="output"
+      >
+        <div className="flex flex-col items-center justify-center">
           <embed src={pdfUrl} width="900" height="900" type="application/pdf" />
           <h3 className="font-bold text-5xl mt-10" style={{ color: "#3B2667" }}>
             Resume Analysis

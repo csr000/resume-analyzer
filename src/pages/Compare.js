@@ -14,7 +14,6 @@ export default function Compare() {
   const [showOutput, setShowOutput] = useState(false);
   const [fileName, setFileName] = useState("");
 
-
   const queries = [{ key: "job_description", value: jobDesc }];
 
   const handleFileSelect = (event) => {
@@ -53,7 +52,7 @@ export default function Compare() {
           >
             Browse
           </button>
-          <span id="pdfName">Selected Files: {fileName}</span>
+          {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
@@ -77,39 +76,42 @@ export default function Compare() {
               icon: "error",
             });
           } else {
-          setShowOutput(true);
-          postData("http://127.0.0.1:8000/compare?", queries, formData, {
-            setResume1,
-            setResume2,
-            setCompare,
-          });
-        }
+            setShowOutput(true);
+            postData("http://127.0.0.1:8000/compare?", queries, formData, {
+              setResume1,
+              setResume2,
+              setCompare,
+            });
+          }
         }}
       >
         START
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
-      <div className={showOutput ? "output active" : "output"} id="output">
-        <div className=" flex flex-col mt-30 w-3/5">
+
+      <div
+        className={showOutput ? "output active my-28" : "output my-28"}
+        id="output"
+      >
+        <div className="mt-30 mx-96">
           <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
             Final Result
           </h3>
-          {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
-          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-            <p>{resume1}</p>
+          <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
+            <p className="text-lg text-gray-500">{resume1}</p>
           </div>
 
-          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-            <p>{resume2}</p>
+          <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
+            <p className="text-lg text-gray-500">{resume2}</p>
           </div>
         </div>
-        <div className="flex flex-col mt-30 w-3/5">
+        <div className="mt-30 mx-96">
           <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
             Comparison
           </h3>
           {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
-          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-            <p>{compare}</p>
+          <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
+            <p className="text-lg text-gray-500">{compare}</p>
           </div>
         </div>
       </div>

@@ -61,10 +61,3 @@
   font-weight: 700;
 }
 
-.nav-menu {
-  display: none;
-}
-
-.nav-menu.active {
-  display: block;
-}
