@@ -107,7 +107,7 @@ export default function Home() {
           </div>
           <div className="w-4/6 items-start">
             <h4 className="font-bold text-2xl mt-10 text-gray-700">
-              Relevant Keywords
+              Relevant Skills
             </h4>
             <div className="flex flex-row flex-wrap gap-6 mt-4">
               {skills.map((item) => {
