@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { scrollToSection } from "../utils";
+import swal from "sweetalert";
 
 export default function Compare() {
   const [jobDesc, setJobDesc] = useState("");
@@ -11,9 +12,43 @@ export default function Compare() {
   const [resume2, setResume2] = useState([]);
   const [compare, setCompare] = useState([]);
   const [click, setClick] = useState(false);
-  const [fileName, setFileName] = useState();
+  const [fileName, setFileName] = useState("");
+
   const postData = () => {
-    setClick(true);
+    if (fileName === "") {
+      swal("Please select resumes!", {
+        icon: "error",
+      });
+    } else if (jobDesc === "") {
+      swal("Please enter a job description!", {
+        icon: "error",
+      });
+    } else {
+      setClick(true);
+      const query = new URLSearchParams();
+      query.append("job_description", jobDesc);
+
+      for (const [key, value] of formData.entries()) {
+        console.log(key + ": " + value);
+      }
+
+      fetch("http://127.0.0.1:8000/compare?" + query, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          setResume1(data.resume1);
+          setResume2(data.resume2);
+          setCompare(data.compare);
+          scrollToSection("output");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
     // swal({
     //   text: "Analyzing . . . . .",
     //   timer: 3000,
@@ -28,29 +63,6 @@ export default function Compare() {
     //     closeOnClickOutside: false,
     //   });
     // });
-
-    const query = new URLSearchParams();
-    query.append("job_description", jobDesc);
-
-    for (const [key, value] of formData.entries()) {
-      console.log(key + ": " + value);
-    }
-
-    fetch("http://127.0.0.1:8000/compare?" + query, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        setResume1(data.resume1);
-        setResume2(data.resume2);
-        setCompare(data.compare);
-        scrollToSection("output");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   };
 
   const handleFileSelect = (event) => {
@@ -92,7 +104,7 @@ export default function Compare() {
           <span id="pdfName">Selected Files: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
-      </div>{" "}
+      </div>
       <div className="w-full flex-col flex items-center mt-10">
         <textarea
           value={jobDesc}

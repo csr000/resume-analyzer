@@ -4,6 +4,7 @@ import "../styles/rank.css";
 import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
 import { scrollToSection } from "../utils";
+import swal from "sweetalert";
 
 export default function Rank() {
   const [jobDesc, setJobDesc] = useState("");
@@ -11,10 +12,40 @@ export default function Rank() {
   const fileInput = useRef(null);
   const [resumeData, setResumeData] = useState([]);
   const [click, setClick] = useState(false);
-  const [fileName, setFileName] = useState();
+  const [fileName, setFileName] = useState("");
 
   const postData = () => {
-    setClick(true);
+    if (fileName === "") {
+      swal("Please select resumes!", {
+        icon: "error",
+      });
+    } else if (jobDesc === "") {
+      swal("Please enter a job description!", {
+        icon: "error",
+      });
+    } else {
+      setClick(true);
+      const query = new URLSearchParams();
+      query.append("job_description", jobDesc);
+
+      for (const [key, value] of formData.entries()) {
+        console.log(key + ": " + value);
+      }
+
+      fetch("http://127.0.0.1:8000/rank?" + query, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          setResumeData(data);
+          scrollToSection("output");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
     // swal({
     //   text: "Analyzing . . . . .",
     //   timer: 3000,
@@ -29,27 +60,6 @@ export default function Rank() {
     //     closeOnClickOutside: false,
     //   });
     // });
-
-    const query = new URLSearchParams();
-    query.append("job_description", jobDesc);
-
-    for (const [key, value] of formData.entries()) {
-      console.log(key + ": " + value);
-    }
-
-    fetch("http://127.0.0.1:8000/rank?" + query, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        setResumeData(data);
-        scrollToSection("output");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   };
 
   const handleFileSelect = (event) => {

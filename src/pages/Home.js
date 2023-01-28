@@ -4,6 +4,7 @@ import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { scrollToSection } from "../utils";
+import swal from 'sweetalert';
 
 export default function Home() {
   const [formData, setFormData] = useState();
@@ -15,33 +16,39 @@ export default function Home() {
   const [skills, setSkills] = useState([]);
   const fileInput = useRef(null);
   const [click, setClick] = useState(false);
-  const [fileName, setFileName] = useState();
+  const [fileName, setFileName] = useState("");
 
   const postData = () => {
-    setClick(true);
-    const query = new URLSearchParams();
-
-    for (const [key, value] of formData.entries()) {
-      console.log(key + ": " + value);
-    }
-
-    fetch("http://127.0.0.1:8000/parse?" + query, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        setName(data.name);
-        setEmail(data.email);
-        setLocation(data.location);
-        setEducation(data.education);
-        setSkills(data.skills);
-        scrollToSection("output");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    if (fileName === null) {
+      swal("Please select a file!",{
+        icon: "error"
       });
+    } else {
+      setClick(true);
+      const query = new URLSearchParams();
+
+      for (const [key, value] of formData.entries()) {
+        console.log(key + ": " + value);
+      }
+
+      fetch("http://127.0.0.1:8000/parse?" + query, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          setName(data.name);
+          setEmail(data.email);
+          setLocation(data.location);
+          setEducation(data.education);
+          setSkills(data.skills);
+          scrollToSection("output");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   const handleFileSelect = (event) => {
