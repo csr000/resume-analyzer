@@ -67,3 +67,11 @@
   font-size: 30px;
   font-weight: 700;
 }
+
+.nav-menu {
+  display: none;
+}
+
+.nav-menu.active {
+  display: block;
+}

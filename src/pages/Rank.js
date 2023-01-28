@@ -10,9 +10,11 @@ export default function Rank() {
   const [formData, setFormData] = useState();
   const fileInput = useRef(null);
   const [resumeData, setResumeData] = useState([]);
+  const [click, setClick] = useState(false);
   const [fileName, setFileName] = useState();
 
   const postData = () => {
+    setClick(true);
     // swal({
     //   text: "Analyzing . . . . .",
     //   timer: 3000,
@@ -57,7 +59,7 @@ export default function Rank() {
       formData.append("files", files[i]);
     }
     setFormData(formData);
-    setFileName(fileInput.current.files[0].name);
+    setFileName(fileInput.current.files.length);
   };
 
   const columns = [
@@ -106,7 +108,7 @@ export default function Rank() {
           >
             Browse
           </button>
-          <span id="pdfName">Selected File: {fileName}</span>
+          <span id="pdfName">Selected Files: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
@@ -126,7 +128,7 @@ export default function Rank() {
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
 
-      <div id="output">
+      <div id="output" className={click ? "nav-menu active" : "nav-menu"}>
         <div className="w-11/12 mt-10 pb-20">
           <MUIDataTable
             title={"RANK ORDER"}
