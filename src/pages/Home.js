@@ -18,7 +18,7 @@ export default function Home() {
   const [fileName, setFileName] = useState();
 
   const postData = () => {
-    setClick(!click);
+    setClick(true);
     const query = new URLSearchParams();
 
     for (const [key, value] of formData.entries()) {
@@ -73,7 +73,7 @@ export default function Home() {
           >
             Browse
           </button>
-          <span id="pdfName">Selected File: {fileName}</span>
+          <span id="pdfName">Selected File Name: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>

@@ -13,7 +13,7 @@ export default function Compare() {
   const [click, setClick] = useState(false);
   const [fileName, setFileName] = useState();
   const postData = () => {
-    setClick(!click);
+    setClick(true);
     // swal({
     //   text: "Analyzing . . . . .",
     //   timer: 3000,
@@ -65,7 +65,7 @@ export default function Compare() {
       }
       setFormData(formData);
     }
-    setFileName(fileInput.current.files[0].name);
+    setFileName(fileInput.current.files.length);
   };
 
   return (
@@ -89,7 +89,7 @@ export default function Compare() {
           >
             Browse
           </button>
-          <span id="pdfName">Selected File: {fileName}</span>
+          <span id="pdfName">Selected Files: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>{" "}
