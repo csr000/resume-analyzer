@@ -10,6 +10,7 @@ export default function Rank() {
   const [formData, setFormData] = useState();
   const fileInput = useRef(null);
   const [resumeData, setResumeData] = useState([]);
+  const [fileName, setFileName] = useState();
 
   const postData = () => {
     // swal({
@@ -56,6 +57,7 @@ export default function Rank() {
       formData.append("files", files[i]);
     }
     setFormData(formData);
+    setFileName(fileInput.current.files[0].name);
   };
 
   const columns = [
@@ -87,10 +89,11 @@ export default function Rank() {
     <div className="rankContainer">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
-        <div className="upload-files">
-          <h3>Drag & drop files or </h3>
+        <div className="flex flex-col gap-5">
+          {/* <h3>Drag & drop files or </h3> */}
           <input
             type="file"
+            accept="application/pdf"
             multiple={true}
             onChange={handleFileSelect}
             ref={fileInput}
@@ -98,11 +101,12 @@ export default function Rank() {
           />
           <button
             onClick={() => fileInput.current.click()}
-            className="border-0 bg-transparent underline"
+            className="border-0 bg-transparent underline text-3xl"
             style={{ color: "#483EA8" }}
           >
             Browse
           </button>
+          <span id="pdfName">Selected File: {fileName}</span>
         </div>
         <p className="formats">Supported formats: PDF</p>
       </div>
