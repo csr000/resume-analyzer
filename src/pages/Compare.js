@@ -120,37 +120,27 @@ export default function Compare() {
         START
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
-      <div className={click ? "nav-menu active" : "nav-menu"}>
-        <div id="output">
-          <div className=" flex flex-col mt-30 w-3/5">
-            <h3
-              className="font-bold text-3xl mt-10"
-              style={{ color: "#3B2667" }}
-            >
-              Final Result
-            </h3>
-            <p className="text-sm text-gray-300">Best suited to least suited</p>
-            <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-              <p>{resume1}</p>
-            </div>
-
-            <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-              <p>{resume2}</p>
-            </div>
+      <div id="output" className={click ? "nav-menu active" : "nav-menu"}>
+        <div className=" flex flex-col mt-30 w-3/5 ">
+          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
+            Final Result
+          </h3>
+          <p className="text-sm text-gray-300">Best suited to least suited</p>
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{resume1}</p>
           </div>
-          <div className={click ? "nav-menu active" : "nav-menu"}>
-            <div className=" flex flex-col mt-30 w-3/5">
-              <h3
-                className="font-bold text-3xl mt-10"
-                style={{ color: "#3B2667" }}
-              >
-                Comparison
-              </h3>
-              {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
-              <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
-                <p>{compare}</p>
-              </div>
-            </div>
+
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{resume2}</p>
+          </div>
+        </div>
+        <div className="flex flex-col mt-30 w-3/5">
+          <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
+            Comparison
+          </h3>
+          {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
+          <div className="bg-white p-4 shadow-2xl rounded-md mt-5">
+            <p>{compare}</p>
           </div>
         </div>
       </div>
