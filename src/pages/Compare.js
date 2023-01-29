@@ -1,18 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
-import { postData } from "../utils";
+import { load, postData } from "../utils";
 import swal from "sweetalert";
 
+const screen = "compare";
+
 export default function Compare() {
-  const [jobDesc, setJobDesc] = useState("");
   const [formData, setFormData] = useState();
-  const fileInput = useRef(null);
-  const [resume1, setResume1] = useState();
-  const [resume2, setResume2] = useState();
-  const [compare, setCompare] = useState();
-  const [showOutput, setShowOutput] = useState(false);
+
+  const [jobDesc, setJobDesc] = useState(load(screen, "jobDesc") || "");
+  const [resume1, setResume1] = useState(load(screen, "resume1") || "");
+  const [resume2, setResume2] = useState(load(screen, "resume2") || "");
+  const [compare, setCompare] = useState(load(screen, "compare") || "");
+  const [showOutput, setShowOutput] = useState(load(screen, "showOutput") || false);
+
   const [fileName, setFileName] = useState("");
+  const fileInput = useRef(null);
 
   const queries = [{ key: "job_description", value: jobDesc }];
 
@@ -31,25 +35,23 @@ export default function Compare() {
     setFileName(fileInput.current.files.length);
   };
 
+  // Save state to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem(`${screen}.jobDesc`, JSON.stringify(jobDesc));
+    localStorage.setItem(`${screen}.resume1`, JSON.stringify(resume1));
+    localStorage.setItem(`${screen}.resume2`, JSON.stringify(resume2));
+    localStorage.setItem(`${screen}.compare`, JSON.stringify(compare));
+    localStorage.setItem(`${screen}.showOutput`, JSON.stringify(showOutput));
+  }, [jobDesc, resume1, resume2, compare, showOutput]);
+
   return (
     <div className="compareContainer">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
-          <input
-            type="file"
-            accept="application/pdf"
-            multiple={true}
-            onChange={handleFileSelect}
-            ref={fileInput}
-            style={{ display: "none" }}
-          />
-          <button
-            onClick={() => fileInput.current.click()}
-            className="border-0 bg-transparent underline text-3xl"
-            style={{ color: "#483EA8" }}
-          >
+          <input type="file" accept="application/pdf" multiple={true} onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
+          <button onClick={() => fileInput.current.click()} className="border-0 bg-transparent underline text-3xl" style={{ color: "#483EA8" }}>
             Browse
           </button>
           {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
@@ -89,10 +91,7 @@ export default function Compare() {
       </button>
       <h2 className="upload-text">Upload multiple resumes to start </h2>
 
-      <div
-        className={showOutput ? "output active my-28" : "output my-28"}
-        id="output"
-      >
+      <div className={showOutput ? "output active my-28" : "output my-28"} id="output">
         <div className="mt-30 mx-96">
           <h3 className="font-bold text-3xl mt-10" style={{ color: "#3B2667" }}>
             Final Result
