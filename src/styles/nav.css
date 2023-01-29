@@ -9,6 +9,7 @@
   backdrop-filter: blur(15.5px);
   border-radius: 10px;
   margin-top: 2rem;
+  z-index: 1;
 }
 
 .navMenu {

@@ -2,23 +2,22 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { postData } from "../utils";
+import { load, postData } from "../utils";
 import swal from "sweetalert";
 
-// Load data from localStorage
-const load = (key) => JSON.parse(localStorage.getItem(key));
+const screen = "parse";
 
 export default function Home() {
-  const [formData, setFormData] = useState(load("formData") || {});
-  const [pdfUrl, setPdfUrl] = useState(load("pdfUrl") || null);
+  const [formData, setFormData] = useState();
+  const [pdfUrl, setPdfUrl] = useState(load(screen, "pdfUrl") || null);
 
-  const [name, setName] = useState(load("name") || "");
-  const [email, setEmail] = useState(load("email") || "");
-  const [location, setLocation] = useState(load("location") || "");
-  const [education, setEducation] = useState(load("education") || "");
-  const [skills, setSkills] = useState(load("skills") || []);
+  const [name, setName] = useState(load(screen, "name") || "");
+  const [email, setEmail] = useState(load(screen, "email") || "");
+  const [location, setLocation] = useState(load(screen, "location") || "");
+  const [education, setEducation] = useState(load(screen, "education") || "");
+  const [skills, setSkills] = useState(load(screen, "skills") || []);
 
-  const [showOutput, setShowOutput] = useState(load("showOutput") || false);
+  const [showOutput, setShowOutput] = useState(load(screen, "showOutput") || false);
   const fileInput = useRef(null);
   const [fileName, setFileName] = useState(null);
 
@@ -33,15 +32,14 @@ export default function Home() {
 
   // Save state to localStorage when it changes
   useEffect(() => {
-    localStorage.setItem("formData", JSON.stringify(formData));
-    localStorage.setItem("pdfUrl", JSON.stringify(pdfUrl));
-    localStorage.setItem("name", JSON.stringify(name));
-    localStorage.setItem("email", JSON.stringify(email));
-    localStorage.setItem("location", JSON.stringify(location));
-    localStorage.setItem("education", JSON.stringify(education));
-    localStorage.setItem("skills", JSON.stringify(skills));
-    localStorage.setItem("showOutput", JSON.stringify(showOutput));
-  }, [formData, pdfUrl, name, email, location, education, skills, showOutput]);
+    localStorage.setItem(`${screen}.pdfUrl`, JSON.stringify(pdfUrl));
+    localStorage.setItem(`${screen}.name`, JSON.stringify(name));
+    localStorage.setItem(`${screen}.email`, JSON.stringify(email));
+    localStorage.setItem(`${screen}.location`, JSON.stringify(location));
+    localStorage.setItem(`${screen}.education`, JSON.stringify(education));
+    localStorage.setItem(`${screen}.skills`, JSON.stringify(skills));
+    localStorage.setItem(`${screen}.showOutput`, JSON.stringify(showOutput));
+  }, [pdfUrl, name, email, location, education, skills, showOutput]);
 
   return (
     <div className="homeContainer pb-10">
