@@ -53,9 +53,6 @@ export async function postData(
     if (res.status === 200) {
       console.log("Success:", data);
 
-      console.log("bool - setName", Boolean(setName));
-      console.log("bool - setResumeData", Boolean(setResumeData));
-
       setName && setName(data.name);
       setEmail && setEmail(data.email);
       setLocation && setLocation(data.location);
