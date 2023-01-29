@@ -1,19 +1,23 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../styles/rank.css";
 import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import { postData } from "../utils";
+import { load, postData } from "../utils";
 import swal from "sweetalert";
 
+const screen = "rank";
+
 export default function Rank() {
-  const [jobDesc, setJobDesc] = useState("");
   const [formData, setFormData] = useState();
-  const fileInput = useRef(null);
-  const [resumeData, setResumeData] = useState([]);
-  const [showOutput, setShowOutput] = useState(false);
+
+  const [jobDesc, setJobDesc] = useState(load(screen, "jobDesc") || "");
+  const [resumeData, setResumeData] = useState(load(screen, "resumeData") || []);
+  const [showOutput, setShowOutput] = useState(load(screen, "showOutput") || false);
+
   const [fileName, setFileName] = useState("");
+  const fileInput = useRef(null);
 
   const queries = [{ key: "job_description", value: jobDesc }];
 
@@ -26,6 +30,13 @@ export default function Rank() {
     setFormData(formData);
     setFileName(fileInput.current.files.length);
   };
+
+  // Save state to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem(`${screen}.jobDesc`, JSON.stringify(jobDesc));
+    localStorage.setItem(`${screen}.resumeData`, JSON.stringify(resumeData));
+    localStorage.setItem(`${screen}.showOutput`, JSON.stringify(showOutput));
+  }, [jobDesc, resumeData, showOutput]);
 
   const columns = [
     {
@@ -63,19 +74,8 @@ export default function Rank() {
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
-          <input
-            type="file"
-            accept="application/pdf"
-            multiple={true}
-            onChange={handleFileSelect}
-            ref={fileInput}
-            style={{ display: "none" }}
-          />
-          <button
-            onClick={() => fileInput.current.click()}
-            className="border-0 bg-transparent underline text-3xl"
-            style={{ color: "#483EA8" }}
-          >
+          <input type="file" accept="application/pdf" multiple={true} onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
+          <button onClick={() => fileInput.current.click()} className="border-0 bg-transparent underline text-3xl" style={{ color: "#483EA8" }}>
             Browse
           </button>
           {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
@@ -116,12 +116,7 @@ export default function Rank() {
       <div id="output" className={showOutput ? "output active" : "output"}>
         <div className="w-11/12 mt-10 pb-20">
           <CacheProvider value={muiCache}>
-            <MUIDataTable
-              title={"RANK ORDER"}
-              data={resumeData}
-              columns={columns}
-              options={options}
-            />
+            <MUIDataTable title={"RANK ORDER"} data={resumeData} columns={columns} options={options} />
           </CacheProvider>
         </div>
       </div>
