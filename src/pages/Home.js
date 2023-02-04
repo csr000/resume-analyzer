@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { load } from "../utils";
+import { load, scrollToSection } from "../utils";
 import swal from "sweetalert";
 import postData from "../utils/postData";
+import { RectLoader } from "../utils/loaders";
 
 const screen = "parse";
 
@@ -40,6 +41,8 @@ export default function Home() {
     localStorage.setItem(`${screen}.education`, JSON.stringify(education));
     localStorage.setItem(`${screen}.skills`, JSON.stringify(skills));
     localStorage.setItem(`${screen}.showOutput`, JSON.stringify(showOutput));
+
+    showOutput && scrollToSection("output"); 
   }, [pdfUrl, name, email, location, education, skills, showOutput]);
 
   return (
@@ -61,13 +64,14 @@ export default function Home() {
         onClick={() => {
           if (fileName) {
             setShowOutput(true);
-            postData("http://127.0.0.1:8000/parse?", null, formData, {
-              setName,
-              setEmail,
-              setLocation,
-              setEducation,
-              setSkills,
-            });
+
+            // postData("http://127.0.0.1:8000/parse?", null, formData, {
+            //   setName,
+            //   setEmail,
+            //   setLocation,
+            //   setEducation,
+            //   setSkills,
+            // });
           } else {
             swal("Please select a file!", {
               icon: "error",
@@ -77,6 +81,9 @@ export default function Home() {
       >
         START
       </button>
+
+     
+
       <h2 className="upload-text">Upload a resume to start</h2>
 
       <div className={showOutput ? "output active mt-60" : "output mt-60"} id="output">
@@ -88,7 +95,8 @@ export default function Home() {
           <div className="w-4/6 items-start mt-10">
             <div className="flex flex-row items-center">
               <p className="text-lg font-bold">Name:</p>
-              <p className="ml-2">{name}</p>
+              {/* <p className="ml-2">{name}</p> */}
+              <RectLoader />
             </div>
 
             <div className="flex flex-row items-center mt-1">
