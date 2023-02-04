@@ -4,8 +4,9 @@ import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import { load, postData } from "../utils";
+import { load } from "../utils";
 import swal from "sweetalert";
+import postData from "../utils/postData";
 
 const screen = "rank";
 

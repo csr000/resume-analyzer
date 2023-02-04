@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { load, postData } from "../utils";
+import { load } from "../utils";
 import swal from "sweetalert";
+import postData from "../utils/postData";
 
 const screen = "parse";
 

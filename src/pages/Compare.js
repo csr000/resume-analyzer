@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
-import { load, postData } from "../utils";
+import { load } from "../utils";
 import swal from "sweetalert";
+import postData from "../utils/postData";
 
 const screen = "compare";
 
