@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { load } from "../utils";
-import swal from "sweetalert";
-import postData from "../utils/postData";
+import postData, { validateBeforePost } from "../utils/postData";
 
 const screen = "compare";
 
@@ -70,15 +69,7 @@ export default function Compare() {
       <button
         className="start-btn font-extrabold rounded-full"
         onClick={() => {
-          if (fileName === "") {
-            swal("Please select resumes!", {
-              icon: "error",
-            });
-          } else if (jobDesc === "") {
-            swal("Please enter a job description!", {
-              icon: "error",
-            });
-          } else {
+          if (validateBeforePost(fileName, jobDesc)) {
             setShowOutput(true);
             postData("http://127.0.0.1:8000/compare?", queries, formData, {
               setResume1,
