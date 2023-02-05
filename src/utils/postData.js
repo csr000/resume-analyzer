@@ -67,3 +67,16 @@ export default async function postData(
     showErr(err);
   }
 }
+
+
+export const validateBeforePost = (fileName,jobDesc) => {
+    let flag = 0
+    if (fileName === "") {
+      showErr("Please select resumes!");
+      flag = 1
+    } else if (jobDesc === "") {
+      showErr("Please enter a job description!");
+      flag = 1
+    } 
+    return !Boolean(flag)
+  }

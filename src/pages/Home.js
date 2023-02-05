@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { load, scrollToSection, getResult } from "../utils";
-import swal from "sweetalert";
+import { load, scrollToSection, getResult, showErr } from "../utils";
 import postData from "../utils/postData";
 import { RectLoader, RevelantSectionLoader } from "../utils/loaders";
+import { Document, Page, pdfjs } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const screen = "parse";
 
@@ -27,7 +28,7 @@ export default function Home() {
     let formData = new FormData();
     formData.append("file", event.target.files[0]);
     const pdfUrl = URL.createObjectURL(formData.get("file"));
-    setPdfUrl(pdfUrl);
+    setPdfUrl(pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0");
     setFormData(formData);
     setFileName(fileInput.current.files[0].name);
   };
@@ -44,6 +45,14 @@ export default function Home() {
 
     showOutput && scrollToSection("output");
   }, [pdfUrl, name, email, location, education, skills, showOutput]);
+
+  // pdf doc
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
 
   return (
     <div className="homeContainer pb-10">
@@ -73,9 +82,7 @@ export default function Home() {
               setSkills,
             });
           } else {
-            swal("Please select a file!", {
-              icon: "error",
-            });
+            showErr("Please select a file!");
           }
         }}
       >
@@ -86,7 +93,10 @@ export default function Home() {
 
       <div className={showOutput ? "output active mt-60" : "output mt-60"} id="output">
         <div className="flex flex-col items-center justify-center">
-          <embed src={pdfUrl} width="900" height="900" type="application/pdf" />
+          {console.log({ pdfUrl })}
+          <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+            <Page pageNumber={pageNumber} />
+          </Document>
           <h3 className="font-bold text-5xl mt-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>

@@ -1,4 +1,4 @@
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 export function scrollToSection(id) {
   const element = document.getElementById(id);
@@ -6,11 +6,10 @@ export function scrollToSection(id) {
 }
 
 export function showErr(text) {
-  swal({
-    title: "Error",
-    text,
+  GlobalToast.fire({
     icon: "error",
-    button: "OK",
+    title: `Error: ${text}`,
+    timer: 3000,
   });
 }
 
@@ -18,4 +17,13 @@ export function showErr(text) {
 export const load = (screen, key) => JSON.parse(localStorage.getItem(`${screen}.${key}`));
 
 // shows loader if loading else result
-export const getResult = (value, Loader) => value ? value : <Loader />;
+export const getResult = (value, Loader) => (value ? value : <Loader />);
+
+export const GlobalToast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+});
+

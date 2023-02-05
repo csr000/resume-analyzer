@@ -107,3 +107,12 @@
 .output.active {
   display: block;
 }
+
+.react-pdf__Page__textContent {
+  display: none;
+}
+
+.react-pdf__Page__annotations {
+  display: none;
+}
+

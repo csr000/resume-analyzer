@@ -5,8 +5,7 @@ import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { load } from "../utils";
-import swal from "sweetalert";
-import postData from "../utils/postData";
+import postData, { validateBeforePost } from "../utils/postData";
 
 const screen = "rank";
 
@@ -94,15 +93,7 @@ export default function Rank() {
       <button
         className="start-btn font-extrabold rounded-full"
         onClick={() => {
-          if (fileName === "") {
-            swal("Please select resumes!", {
-              icon: "error",
-            });
-          } else if (jobDesc === "") {
-            swal("Please enter a job description!", {
-              icon: "error",
-            });
-          } else {
+          if (validateBeforePost(fileName, jobDesc)) {
             setShowOutput(true);
             postData("http://127.0.0.1:8000/rank?", queries, formData, {
               setResumeData,
