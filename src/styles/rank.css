@@ -68,12 +68,11 @@
   font-weight: 700;
 }
 
-.nav-menu {
+.output {
   display: none;
 }
 
-.nav-menu.active {
-  display: block;
+.output.active {
   width: 100%;
   display: flex;
   align-items: center;
