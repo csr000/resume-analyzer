@@ -55,7 +55,7 @@ export default function Home() {
   }
 
   return (
-    <div className="homeContainer pb-10">
+    <div className="homeContainer pb-20">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
@@ -100,34 +100,37 @@ export default function Home() {
           <h3 className="font-bold text-5xl mt-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>
-          <div className="w-full items-start mt-10 ">
-            <div className="flex flex-row h-12 w-8/12  justify-between">
-              <p className="text-lg font-bold">Name:</p>
-              <p className=" ">{getResult(name, RectLoader)}</p>
-            </div>
+          <div className="flex flex-col w-full items-center mt-10 ">
+            <div className="flex gap-20 w-4/6">
+              <div className="flex flex-row h-12 ">
+                <p className="text-lg font-bold">Name:</p>
+                <p className="ml-2">{getResult(name, RectLoader)}</p>
+              </div>
 
-            <div className="flex flex-row h-12 w-8/12  justify-between">
-              <p className="text-lg font-bold">Mail:</p>
-              <p className="">{getResult(email, RectLoader)}</p>
+              <div className="flex flex-row h-12 ">
+                <p className="text-lg font-bold">Mail:</p>
+                <p className="ml-2">{getResult(email, RectLoader)}</p>
+              </div>
             </div>
+            <div className="flex gap-20 w-4/6">
+              <div className="flex flex-row h-12 ">
+                <p className="text-lg font-bold">Location:</p>
+                <p className="ml-2">{getResult(location, RectLoader)}</p>
+              </div>
 
-            <div className="flex flex-row h-12 w-8/12  justify-between">
-              <p className="text-lg font-bold">Location:</p>
-              <p className="ml-2">{getResult(location, RectLoader)}</p>
-            </div>
-
-            <div className="flex flex-row h-12 w-8/12 justify-between">
-              <p className="text-lg font-bold">Education:</p>
-              <p className="mt-1 ml-2">{getResult(education, RectLoader)}</p>
+              <div className="flex flex-row h-12 ">
+                <p className="text-lg font-bold">Education:</p>
+                <p className="ml-2">{getResult(education, RectLoader)}</p>
+              </div>
             </div>
           </div>
-          <div className="w-full items-start">
+          <div className="w-4/6 items-start">
             <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
-            <div className="flex flex-row flex-wrap gap-6 mt-4 w-full border">
+            <div className="flex flex-row flex-wrap gap-6 mt-4 ">
               {skills ? (
                 skills.map((item, index) => {
                   return (
-                    <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1 w-full">
+                    <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
                       <p className="text-sm">{item}</p>
                       <AiOutlineClose onClick={() => setSkills(skills.filter((_, i) => i !== index))} />
                     </div>
