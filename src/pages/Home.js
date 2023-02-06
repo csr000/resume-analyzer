@@ -102,25 +102,25 @@ export default function Home() {
           </h3>
           <div className="flex flex-col w-full items-center mt-10 ">
             <div className="flex gap-20 w-4/6">
-              <div className="flex flex-row h-12 ">
+              <div className="flex flex-row h-12">
                 <p className="text-lg font-bold">Name:</p>
-                <p className="ml-2">{getResult(name, RectLoader)}</p>
+                <p className="ml-2 mt-0.5">{getResult(name, RectLoader)}</p>
               </div>
 
               <div className="flex flex-row h-12 ">
                 <p className="text-lg font-bold">Mail:</p>
-                <p className="ml-2">{getResult(email, RectLoader)}</p>
+                <p className="ml-2 mt-0.5">{getResult(email, RectLoader)}</p>
               </div>
             </div>
             <div className="flex gap-20 w-4/6">
               <div className="flex flex-row h-12 ">
                 <p className="text-lg font-bold">Location:</p>
-                <p className="ml-2">{getResult(location, RectLoader)}</p>
+                <p className="ml-2 mt-0.5">{getResult(location, RectLoader)}</p>
               </div>
 
               <div className="flex flex-row h-12 ">
                 <p className="text-lg font-bold">Education:</p>
-                <p className="ml-2">{getResult(education, RectLoader)}</p>
+                <p className="ml-2 mt-0.5">{getResult(education, RectLoader)}</p>
               </div>
             </div>
           </div>
