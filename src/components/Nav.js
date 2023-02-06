@@ -11,7 +11,7 @@ export default function Nav() {
       <nav className="navContainer">
         <ul className="navMenu active">
           <li>
-            <NavLink to="/" className="navItem">
+            <NavLink to="/" className="navItem" >
               Parse
             </NavLink>
           </li>
