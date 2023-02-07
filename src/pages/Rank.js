@@ -69,7 +69,7 @@ export default function Rank() {
   });
 
   return (
-    <div className="rankContainer">
+    <div className="rankContainer pb-20">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">

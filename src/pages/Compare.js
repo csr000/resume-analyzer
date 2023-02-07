@@ -45,7 +45,7 @@ export default function Compare() {
   }, [jobDesc, resume1, resume2, compare, showOutput]);
 
   return (
-    <div className="compareContainer">
+    <div className="compareContainer pb-20">
       <div className="uploadContainer">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
