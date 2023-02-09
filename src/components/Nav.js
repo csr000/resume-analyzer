@@ -7,32 +7,29 @@ import "../styles/nav.css";
 
 export default function Nav() {
   return (
-    <>
-      <nav className="navContainer">
-        <ul className="navMenu active">
-          <li>
-            <NavLink to="/" className="navItem">
+    <div className="w-full flex flex-col items-center justify-center ">
+      <nav className="w-full z-1 flex items-center justify-center ">
+        <div className="navMenu active flex items-center w-full ">
+          <div className=" h-20 w-4/5 laptop:w-1/2 mx-auto px-5 flex items-center justify-evenly text-sm tablet:text-xl font-bold navContainer">
+            <NavLink to="/" className="navItem ">
               Parse
             </NavLink>
-          </li>
-          <li>
-            <NavLink to="/rank" className="navItem">
+            <NavLink to="/rank" className="navItem ">
               Rank
             </NavLink>
-          </li>
-          <li>
-            <NavLink to="/compare" className="navItem">
+            <NavLink to="/compare" className="navItem ">
               Compare
             </NavLink>
-          </li>
-        </ul>
+          </div>
+        </div>
       </nav>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/rank" element={<Rank />} />
-        <Route path="/compare" element={<Compare />} />
-      </Routes>
-    </>
+      <div className="mt-24 w-full">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/rank" element={<Rank />} />
+          <Route path="/compare" element={<Compare />} />
+        </Routes>
+      </div>
+    </div>
   );
 }

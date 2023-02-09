@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { load, scrollToSection, getResult, showErr } from "../utils";
+import { load, scrollToSection, getResult, showErr, truncate } from "../utils";
 import postData from "../utils/postData";
 import { RectLoader, RevelantSectionLoader } from "../utils/loaders";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -55,21 +55,25 @@ export default function Home() {
   }
 
   return (
-    <div className="homeContainer pb-10">
-      <div className="uploadContainer">
+    <div className="h-full w-full flex flex-col items-center">
+      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-9/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
-          <input type="file" accept="application/pdf" onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
-          <button onClick={() => fileInput.current.click()} className="border-0 bg-transparent underline text-3xl" style={{ color: "#483EA8" }}>
-            Browse
+          <input type="file" accept="application/pdf, .docx" onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
+          <button
+            onClick={() => fileInput.current.click()}
+            className="border-0 bg-transparent underline text-2xl tablet:text-3xl capitalize"
+            style={{ color: "#483EA8" }}
+          >
+            select file
           </button>
-          {fileName && <span id="pdfName">Selected File Name: {fileName}</span>}
+          {fileName && <span id="pdfName">Selected File Name: {truncate(fileName)}</span>}
         </div>
-        <p className="formats">Supported formats: PDF</p>
+        <p className="mt-1 text-md text-gray-500">Supported formats: PDF & DOCX</p>
       </div>
       <button
-        className="start-btn font-extrabold rounded-full"
+        className="start-btn text-white text-xl tablet:text-3xl font-bold tablet:font-extrabold rounded-full mt-8 w-2/5 tablet:w-1/5 h-10 tablet:h-16 cursor-pointer z-50"
         onClick={() => {
           if (fileName) {
             setShowOutput(true);
@@ -89,9 +93,9 @@ export default function Home() {
         START
       </button>
 
-      <h2 className="upload-text">Upload a resume to start</h2>
+      <h2 className="my-5 tablet:my-10 xl tablet:text-2xl text-gray-500">Upload a resume to start</h2>
 
-      <div className={showOutput ? "output active mt-60" : "output mt-60"} id="output">
+      <div className={showOutput ? "output active mt-60 pb-20 w-full" : "output mt-60 pb-20"} id="output">
         <div className="flex flex-col items-center justify-center">
           {console.log({ pdfUrl })}
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
@@ -100,30 +104,33 @@ export default function Home() {
           <h3 className="font-bold text-5xl mt-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>
-          <div className="w-4/6 items-start mt-10">
-            <div className="flex flex-row items-center">
-              <p className="text-lg font-bold">Name:</p>
-              <p className="ml-2">{getResult(name, RectLoader)}</p>
-            </div>
+          <div className="flex flex-row w-[800px] items-center justify-between mt-10">
+            <div className="flex flex-col gap-0 ">
+              <div className="flex flex-row h-12">
+                <p className="text-lg font-bold">Name:</p>
+                <p className="ml-2 mt-0.5">{getResult(name, RectLoader)}</p>
+              </div>
 
-            <div className="flex flex-row items-center mt-1">
-              <p className="text-lg font-bold">Mail:</p>
-              <p className="ml-2">{getResult(email, RectLoader)}</p>
+              <div className="flex flex-row h-12 ">
+                <p className="text-lg font-bold">Location:</p>
+                <p className="ml-2 mt-0.5">{getResult(location, RectLoader)}</p>
+              </div>
             </div>
+            <div className="flex flex-col gap-0">
+              <div className="flex flex-row h-12 ">
+                <p className="text-lg font-bold">Mail:</p>
+                <p className="ml-2 mt-0.5">{getResult(email, RectLoader)}</p>
+              </div>
 
-            <div className="flex flex-row items-center mt-1">
-              <p className="text-lg font-bold">Location:</p>
-              <p className="ml-2">{getResult(location, RectLoader)}</p>
-            </div>
-
-            <div className="flex flex-row mt-1">
-              <p className="text-lg font-bold">Education:</p>
-              <p className="mt-1 ml-2">{getResult(education, RectLoader)}</p>
+              <div className="flex flex-row h-12 ">
+                <p className="text-lg font-bold">Education:</p>
+                <p className="ml-2 mt-0.5">{getResult(education, RectLoader)}</p>
+              </div>
             </div>
           </div>
           <div className="w-4/6 items-start">
             <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
-            <div className="flex flex-row flex-wrap gap-6 mt-4">
+            <div className="flex flex-row flex-wrap gap-6 mt-4 ">
               {skills ? (
                 skills.map((item, index) => {
                   return (

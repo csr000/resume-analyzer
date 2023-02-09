@@ -4,7 +4,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import { load } from "../utils";
+import { load, truncate } from "../utils";
 import postData, { validateBeforePost } from "../utils/postData";
 
 const screen = "rank";
@@ -69,29 +69,40 @@ export default function Rank() {
   });
 
   return (
-    <div className="rankContainer">
-      <div className="uploadContainer">
+    <div className="h-full w-full flex flex-col items-center justify-center">
+      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-9/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
-          <input type="file" accept="application/pdf" multiple={true} onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
-          <button onClick={() => fileInput.current.click()} className="border-0 bg-transparent underline text-3xl" style={{ color: "#483EA8" }}>
-            Browse
+          <input
+            type="file"
+            accept="application/pdf, .docx"
+            multiple={true}
+            onChange={handleFileSelect}
+            ref={fileInput}
+            style={{ display: "none" }}
+          />
+          <button
+            onClick={() => fileInput.current.click()}
+            className="border-0 bg-transparent underline text-2xl tablet:text-3xl capitalize"
+            style={{ color: "#483EA8" }}
+          >
+            select file
           </button>
-          {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
+          {fileName && <span id="pdfName">Selected Files: {truncate(fileName)}</span>}
         </div>
-        <p className="formats">Supported formats: PDF</p>
+        <p className="mt-1 text-md text-gray-500">Supported formats: PDF & DOCX</p>
       </div>
       <div className="w-full flex-col flex items-center mt-10">
         <textarea
           value={jobDesc}
           onChange={(e) => setJobDesc(e.target.value)}
           placeholder="PLEASE KEY IN JOB DESCRIPTION AND CLICK ON THE BUTTON TO RANK YOUR RESUMES"
-          className="border mt-5 w-1/2 h-48 outline-none p-5"
+          className="border tablet:mt-5 w-9/12 tablet:w-3/5 h-48 outline-none p-5"
         />
       </div>
       <button
-        className="start-btn font-extrabold rounded-full"
+        className="start-btn text-white text-xl tablet:text-3xl font-bold tablet:font-extrabold rounded-full mt-8 w-2/5 tablet:w-1/5 h-10 tablet:h-16 cursor-pointer z-50"
         onClick={() => {
           if (validateBeforePost(fileName, jobDesc)) {
             setShowOutput(true);
@@ -103,9 +114,9 @@ export default function Rank() {
       >
         START
       </button>
-      <h2 className="upload-text">Upload multiple resumes to start </h2>
+      <h2 className="my-5 tablet:my-10 xl tablet:text-2xl text-gray-500">Upload multiple resumes to start </h2>
 
-      <div id="output" className={showOutput ? "output active" : "output"}>
+      <div id="output" className={showOutput ? "output active w-11/12" : "output"}>
         <div className="w-11/12 mt-10 pb-20">
           <CacheProvider value={muiCache}>
             <MUIDataTable title={"RANK ORDER"} data={resumeData} columns={columns} options={options} />

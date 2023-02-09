@@ -27,3 +27,6 @@ export const GlobalToast = Swal.mixin({
   timerProgressBar: true,
 });
 
+export function truncate(str) {
+  return str.length > 10 ? str.substring(0, 7) + "..." : str;
+}

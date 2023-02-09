@@ -1,64 +1,16 @@
-.rankContainer {
-  min-height: 100%;
-  margin-top: 5rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .uploadContainer {
-  width: 736px;
-  height: 370px;
   background: #f8f8ff;
   border: 1px dashed rgba(56, 78, 183, 0.3);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.upload-files {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-  font-size: 20px;
-}
-
-.formats {
-  color: #676767;
-  font-size: 16px;
 }
 
 .start-btn {
-  margin-top: 2rem;
-  width: 290px;
-  height: 65px;
   background: linear-gradient(135deg, #3b2667 0%, #bc78ec 100%);
   border: none;
-  font-size: 36px;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-/* .start-btn:hover {
-  background: #f1ecf5;
-  color: #3b2667;
-  border: 1px solid #3b2667;
-  transition: 0.5s ease-in;
-} */
-
-.upload-text {
-  margin-top: 3rem;
-  font-size: 40px;
-  color: rgba(30, 30, 30, 0.6);
 }
 
 .swal-modal {
   width: 600px;
-  /* height: 350px; */
   padding: 3rem;
   border-radius: 25px;
 }
@@ -66,16 +18,4 @@
 .swal-text {
   font-size: 30px;
   font-weight: 700;
-}
-
-.nav-menu {
-  display: none;
-}
-
-.nav-menu.active {
-  display: block;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

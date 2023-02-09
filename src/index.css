@@ -19,3 +19,7 @@ code {
 li {
   list-style: none;
 }
+
+textarea::placeholder{
+  font-size: 14px;
+}
