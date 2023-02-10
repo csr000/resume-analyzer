@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { load, scrollToSection, getResult, showErr, truncate } from "../utils";
+import { load, scrollToSection, showErr, truncate } from "../utils";
 import postData from "../utils/postData";
-import { RectLoader, RevelantSectionLoader } from "../utils/loaders";
+import { AnalysisSectionLoader } from "../utils/loaders";
 import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -43,7 +43,7 @@ export default function Home() {
     localStorage.setItem(`${screen}.skills`, JSON.stringify(skills));
     localStorage.setItem(`${screen}.showOutput`, JSON.stringify(showOutput));
 
-    showOutput && scrollToSection("output");
+    // showOutput && scrollToSection("output");
   }, [pdfUrl, name, email, location, education, skills, showOutput]);
 
   // pdf doc
@@ -101,54 +101,56 @@ export default function Home() {
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
             <Page pageNumber={pageNumber} />
           </Document>
-          <h3 className="font-bold text-5xl mt-10" style={{ color: "#3B2667" }}>
+          <h3 className="font-bold text-5xl my-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>
-          <div className="flex flex-row w-[800px] items-center justify-between mt-10">
-            <div className="flex flex-col gap-0 ">
-              <div className="flex flex-row h-12">
-                <p className="text-lg font-bold">Name:</p>
-                <p className="ml-2 mt-0.5">{getResult(name, RectLoader)}</p>
-              </div>
 
-              <div className="flex flex-row h-12 ">
-                <p className="text-lg font-bold">Location:</p>
-                <p className="ml-2 mt-0.5">{getResult(location, RectLoader)}</p>
-              </div>
-            </div>
-            <div className="flex flex-col gap-0">
-              <div className="flex flex-row h-12 ">
-                <p className="text-lg font-bold">Mail:</p>
-                <p className="ml-2 mt-0.5">{getResult(email, RectLoader)}</p>
-              </div>
-
-              <div className="flex flex-row h-12 ">
-                <p className="text-lg font-bold">Education:</p>
-                <p className="ml-2 mt-0.5">{getResult(education, RectLoader)}</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-4/6 items-start">
-            <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
-            <div className="flex flex-row flex-wrap gap-6 mt-4 ">
-              {skills ? (
-                skills.map((item, index) => {
-                  return (
-                    <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
-                      <p className="text-sm">{item}</p>
-                      <AiOutlineClose onClick={() => setSkills(skills.filter((_, i) => i !== index))} />
+            {name ? (
+              <>
+                <div className="w-4/6 grid grid-cols-2 gap-2 mt-10">
+                  <div className="flex flex-col gap-0 ">
+                    <div className="flex flex-row h-12">
+                      <p className="text-lg font-bold">Name:</p>
+                      <p className="ml-2 mt-0.5">{name}</p>
                     </div>
-                  );
-                })
-              ) : (
-                <RevelantSectionLoader />
-              )}
-            </div>
-          </div>
+
+                    <div className="flex flex-row h-12 ">
+                      <p className="text-lg font-bold">Location:</p>
+                      <p className="ml-2 mt-0.5">{location}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-0">
+                    <div className="flex flex-row h-12 ">
+                      <p className="text-lg font-bold">Mail:</p>
+                      <p className="ml-2 mt-0.5">{email}</p>
+                    </div>
+
+                    <div className="flex flex-row h-12 ">
+                      <p className="text-lg font-bold">Education:</p>
+                      <p className="ml-2 mt-0.5">{education}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-4/6 mt-20">
+                  <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
+                  <div className="flex flex-row flex-wrap gap-6 mt-4 ">
+                    {skills &&
+                      skills.map((item, index) => {
+                        return (
+                          <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
+                            <p className="text-sm">{item}</p>
+                            <AiOutlineClose onClick={() => setSkills(skills.filter((_, i) => i !== index))} />
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <AnalysisSectionLoader />
+            )}
         </div>
       </div>
     </div>
   );
 }
-// ;
-//
