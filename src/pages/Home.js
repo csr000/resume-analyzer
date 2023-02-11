@@ -43,7 +43,7 @@ export default function Home() {
     localStorage.setItem(`${screen}.skills`, JSON.stringify(skills));
     localStorage.setItem(`${screen}.showOutput`, JSON.stringify(showOutput));
 
-    // showOutput && scrollToSection("output");
+    showOutput && scrollToSection("output");
   }, [pdfUrl, name, email, location, education, skills, showOutput]);
 
   // pdf doc
@@ -95,7 +95,7 @@ export default function Home() {
 
       <h2 className="my-5 tablet:my-10 xl tablet:text-2xl text-gray-500">Upload a resume to start</h2>
 
-      <div className={showOutput ? "output active mt-60 pb-20 w-full" : "output mt-60 pb-20"} id="output">
+      <div className={showOutput ? "output active mt-30 pb-20 w-full" : "output mt-30 pb-20"} id="output">
         <div className="flex flex-col items-center justify-center">
           {console.log({ pdfUrl })}
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
@@ -104,30 +104,29 @@ export default function Home() {
           <h3 className="font-bold text-5xl my-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>
-
             {name ? (
               <>
                 <div className="w-4/6 grid grid-cols-2 gap-2 mt-10">
                   <div className="flex flex-col gap-0 ">
-                    <div className="flex flex-row h-12">
+                    <div className="h-12 mb-5">
                       <p className="text-lg font-bold">Name:</p>
-                      <p className="ml-2 mt-0.5">{name}</p>
+                      <p className="mt-0.5 mb-1">{name}</p>
                     </div>
 
-                    <div className="flex flex-row h-12 ">
+                    <div className="h-12 mb-5">
                       <p className="text-lg font-bold">Location:</p>
-                      <p className="ml-2 mt-0.5">{location}</p>
+                      <p className="mt-0.5 mb-1">{location}</p>
                     </div>
                   </div>
                   <div className="flex flex-col gap-0">
-                    <div className="flex flex-row h-12 ">
+                    <div className="h-12 mb-5">
                       <p className="text-lg font-bold">Mail:</p>
-                      <p className="ml-2 mt-0.5">{email}</p>
+                      <p className="mt-0.5 mb-1">{email}</p>
                     </div>
 
-                    <div className="flex flex-row h-12 ">
+                    <div className="h-12 mb-5">
                       <p className="text-lg font-bold">Education:</p>
-                      <p className="ml-2 mt-0.5">{education}</p>
+                      <p className="mt-0.5 mb-1">{education}</p>
                     </div>
                   </div>
                 </div>

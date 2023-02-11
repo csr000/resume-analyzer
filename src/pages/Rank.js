@@ -97,7 +97,7 @@ export default function Rank() {
         <textarea
           value={jobDesc}
           onChange={(e) => setJobDesc(e.target.value)}
-          placeholder="PLEASE KEY IN JOB DESCRIPTION AND CLICK ON THE BUTTON TO RANK YOUR RESUMES"
+          placeholder="PLEASE KEY IN JOB DESCRIPTION AND CLICK ON THE BUTTON TO RANK THE RESUMES"
           className="border tablet:mt-5 w-9/12 tablet:w-3/5 h-48 outline-none p-5"
         />
       </div>
