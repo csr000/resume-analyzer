@@ -24,5 +24,10 @@ export const GlobalToast = Swal.mixin({
 });
 
 export function truncate(str) {
-  return str.length > 10 ? str.substring(0, 7) + "..." : str;
+  const parts = str.split(".");
+  if (str.length <= 10) return str;
+
+  const fileExtension = parts.pop();
+  const truncatedFileName = parts.map((part) => part.substring(0, 7)).join(".") + "...";
+  return `${truncatedFileName}.${fileExtension}`;
 }
