@@ -4,7 +4,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import { load, truncate } from "../utils";
+import { load } from "../utils";
 import postData, { validateBeforePost } from "../utils/postData";
 
 const screen = "rank";
@@ -89,7 +89,7 @@ export default function Rank() {
           >
             select file
           </button>
-          {fileName && <span id="pdfName">Selected Files: {truncate(fileName)}</span>}
+          {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
         </div>
         <p className="mt-1 text-md text-gray-500">Supported formats: PDF & DOCX</p>
       </div>

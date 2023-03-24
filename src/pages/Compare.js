@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/compare.css";
 import { BsCloudUpload } from "react-icons/bs";
-import { load, truncate } from "../utils";
+import { load } from "../utils";
 import postData, { validateBeforePost } from "../utils/postData";
 
 const screen = "compare";
@@ -65,7 +65,7 @@ export default function Compare() {
           >
             select file
           </button>
-          {fileName && <span id="pdfName">Selected Files: {truncate(fileName)}</span>}
+          {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
         </div>
         <p className="mt-1 text-md text-gray-500">Supported formats: PDF & DOCX</p>
       </div>
