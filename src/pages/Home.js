@@ -19,6 +19,7 @@ export default function Home() {
   const [location, setLocation] = useState(load(screen, "location") || "");
   const [education, setEducation] = useState(load(screen, "education") || "");
   const [skills, setSkills] = useState(load(screen, "skills") || null);
+  const [summary, setSummary] = useState(load(screen, "summary") || null);
 
   const [showOutput, setShowOutput] = useState(load(screen, "showOutput") || false);
   const fileInput = useRef(null);
@@ -41,10 +42,11 @@ export default function Home() {
     localStorage.setItem(`${screen}.location`, JSON.stringify(location));
     localStorage.setItem(`${screen}.education`, JSON.stringify(education));
     localStorage.setItem(`${screen}.skills`, JSON.stringify(skills));
+    localStorage.setItem(`${screen}.summary`, JSON.stringify(summary));
     localStorage.setItem(`${screen}.showOutput`, JSON.stringify(showOutput));
 
     showOutput && scrollToSection("output");
-  }, [pdfUrl, name, email, location, education, skills, showOutput]);
+  }, [pdfUrl, name, email, location, education, summary, showOutput]);
 
   // pdf doc
   const [numPages, setNumPages] = useState(null);
@@ -84,6 +86,7 @@ export default function Home() {
               setLocation,
               setEducation,
               setSkills,
+              setSummary,
             });
           } else {
             showErr("Please select a file!");
@@ -104,50 +107,51 @@ export default function Home() {
           <h3 className="font-bold text-5xl my-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>
-            {name ? (
-              <>
-                <div className="w-4/6 grid grid-cols-2 gap-2 mt-10">
-                  <div className="flex flex-col gap-0 ">
-                    <div className="h-12 mb-5">
-                      <p className="text-lg font-bold">Name:</p>
-                      <p className="mt-0.5 mb-1">{name}</p>
-                    </div>
-
-                    <div className="h-12 mb-5">
-                      <p className="text-lg font-bold">Location:</p>
-                      <p className="mt-0.5 mb-1">{location}</p>
-                    </div>
+          {name ? (
+            <>
+              <div className="w-4/6 grid grid-cols-2 gap-2 mt-10">
+                <div className="flex flex-col gap-0 ">
+                  <div className="h-12 mb-5">
+                    <p className="text-lg font-bold">Name:</p>
+                    <p className="mt-0.5 mb-1">{name}</p>
                   </div>
-                  <div className="flex flex-col gap-0">
-                    <div className="h-12 mb-5">
-                      <p className="text-lg font-bold">Mail:</p>
-                      <p className="mt-0.5 mb-1">{email}</p>
-                    </div>
 
-                    <div className="h-12 mb-5">
-                      <p className="text-lg font-bold">Education:</p>
-                      <p className="mt-0.5 mb-1">{education}</p>
-                    </div>
+                  <div className="h-12 mb-5">
+                    <p className="text-lg font-bold">Location:</p>
+                    <p className="mt-0.5 mb-1">{location}</p>
                   </div>
                 </div>
-                <div className="w-4/6 mt-20">
-                  <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
-                  <div className="flex flex-row flex-wrap gap-6 mt-4 ">
-                    {skills &&
-                      skills.map((item, index) => {
-                        return (
-                          <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
-                            <p className="text-sm">{item}</p>
-                            <AiOutlineClose onClick={() => setSkills(skills.filter((_, i) => i !== index))} />
-                          </div>
-                        );
-                      })}
+                <div className="flex flex-col gap-0">
+                  <div className="h-12 mb-5">
+                    <p className="text-lg font-bold">Mail:</p>
+                    <p className="mt-0.5 mb-1">{email}</p>
+                  </div>
+
+                  <div className="h-12 mb-5">
+                    <p className="text-lg font-bold">Education:</p>
+                    <p className="mt-0.5 mb-1">{education}</p>
                   </div>
                 </div>
-              </>
-            ) : (
-              <AnalysisSectionLoader />
-            )}
+              </div>
+              <div className="w-4/6 mt-20">
+                <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
+                <div className="flex flex-row flex-wrap gap-6 mt-4 ">
+                  {skills &&
+                    skills.map((item, index) => {
+                      return (
+                        <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
+                          <p className="text-sm">{item}</p>
+                          <AiOutlineClose onClick={() => setSkills(skills.filter((_, i) => i !== index))} />
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+              <div>summary: {summary}</div>
+            </>
+          ) : (
+            <AnalysisSectionLoader />
+          )}
         </div>
       </div>
     </div>

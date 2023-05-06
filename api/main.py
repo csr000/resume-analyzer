@@ -47,6 +47,7 @@ async def parse(file: bytes = File(...)):
             "location": "<location>",
             "education": "<education>",
             "skills": "<an array of skills>",
+            "summary": "<summarize the resume in 5 lines>",
         }
     )
 

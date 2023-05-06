@@ -13,7 +13,7 @@ export default async function postData(
   url,
   queries,
   formData,
-  { setName, setEmail, setLocation, setEducation, setSkills, setResumeData, setResume1, setResume2, setCompare }
+  { setName, setEmail, setLocation, setEducation, setSkills,setSummary, setResumeData, setResume1, setResume2, setCompare }
 ) {
   const query = new URLSearchParams();
   if (queries) {
@@ -45,6 +45,7 @@ export default async function postData(
       setLocation && setLocation(data.location);
       setEducation && setEducation(data.education);
       setSkills && setSkills(data.skills);
+      setSummary && setSummary(data.summary);
 
       setResumeData && setResumeData(data);
 
