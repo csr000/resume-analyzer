@@ -76,7 +76,7 @@ export default function Rank() {
           {/* <h3>Drag & drop files or </h3> */}
           <input
             type="file"
-            accept="application/pdf, .docx"
+            accept="application/pdf"
             multiple={true}
             onChange={handleFileSelect}
             ref={fileInput}
@@ -91,7 +91,7 @@ export default function Rank() {
           </button>
           {fileName && <span id="pdfName">Selected Files: {fileName}</span>}
         </div>
-        <p className="mt-1 text-md text-gray-500">Supported formats: PDF & DOCX</p>
+        <p className="mt-1 text-md text-gray-500">Supported formats: PDF</p>
       </div>
       <div className="w-full flex-col flex items-center mt-10">
         <textarea

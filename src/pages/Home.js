@@ -62,7 +62,7 @@ export default function Home() {
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
-          <input type="file" accept="application/pdf, .docx" onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
+          <input type="file" accept="application/pdf" onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
           <button
             onClick={() => fileInput.current.click()}
             className="border-0 bg-transparent underline text-2xl tablet:text-3xl capitalize"
@@ -72,7 +72,7 @@ export default function Home() {
           </button>
           {fileName && <span id="pdfName">Selected File Name: {truncate(fileName)}</span>}
         </div>
-        <p className="mt-1 text-md text-gray-500">Supported formats: PDF & DOCX</p>
+        <p className="mt-1 text-md text-gray-500">Supported formats: PDF</p>
       </div>
       <button
         className="start-btn text-white text-xl tablet:text-3xl font-bold tablet:font-extrabold rounded-full mt-8 w-2/5 tablet:w-1/5 h-10 tablet:h-16 cursor-pointer z-50"
