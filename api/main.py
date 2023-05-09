@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Union
 from utils import pdf_to_txt, post_to_model
@@ -56,7 +56,12 @@ async def parse(file: bytes = File(...)):
     Extract the necessary information and return it using the template below:
     {stringified_structure}. Make sure its a valid json and each key value is enclosed in double quotes.
     """
-    return json.loads(post_to_model(template))
+    for i in range(3):
+        try:
+            return json.loads(post_to_model(template))
+        except json.decoder.JSONDecodeError as e:
+            if i == 2:
+                raise HTTPException(status_code=500) from e
 
 
 @app.post("/rank")
