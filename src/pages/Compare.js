@@ -50,14 +50,7 @@ export default function Compare() {
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
-          <input
-            type="file"
-            accept="application/pdf"
-            multiple={true}
-            onChange={handleFileSelect}
-            ref={fileInput}
-            style={{ display: "none" }}
-          />
+          <input type="file" accept="application/pdf" multiple={true} onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
           <button
             onClick={() => fileInput.current.click()}
             className="border-0 bg-transparent underline text-2xl tablet:text-3xl capitalize"
@@ -99,23 +92,27 @@ export default function Compare() {
           <h3 className="font-bold text-2xl tablet:text-3xl mt-10" style={{ color: "#3B2667" }}>
             Final Result
           </h3>
-          <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
-            <p className="text-base tablet:text-lg text-gray-500">{resume1}</p>
-          </div>
-
-          <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
-            <p className="text-base tablet:text-lg text-gray-500">{resume2}</p>
-          </div>
+          {resume1 && (
+            <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
+              <p className="text-base tablet:text-lg text-gray-500">{resume1}</p>
+            </div>
+          )}
+          {resume2 && (
+            <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
+              <p className="text-base tablet:text-lg text-gray-500">{resume2}</p>
+            </div>
+          )}
         </div>
-        <div className="mt-30 mx-96 w-10/12">
-          <h3 className="font-bold text-2xl tablet:text-3xl mt-10" style={{ color: "#3B2667" }}>
-            Comparison
-          </h3>
-          {/* <p className="text-sm text-gray-300">Best suited to least suited</p> */}
-          <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
-            <p className="text-base tablet:text-lg text-gray-500">{compare}</p>
+        {compare && (
+          <div className="mt-30 mx-96 w-10/12">
+            <h3 className="font-bold text-2xl tablet:text-3xl mt-10" style={{ color: "#3B2667" }}>
+              Comparison
+            </h3>
+            <div className="bg-white p-4 shadow-xl rounded-lg mt-5">
+              <p className="text-base tablet:text-lg text-gray-500">{compare}</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
