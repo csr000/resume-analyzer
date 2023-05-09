@@ -6,6 +6,7 @@ import { load, scrollToSection, showErr, truncate } from "../utils";
 import postData from "../utils/postData";
 import { AnalysisSectionLoader } from "../utils/loaders";
 import { Document, Page, pdfjs } from "react-pdf";
+import Typewriter from "typewriter-effect";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const screen = "parse";
@@ -22,6 +23,7 @@ export default function Home() {
   const [summary, setSummary] = useState(load(screen, "summary") || null);
 
   const [showOutput, setShowOutput] = useState(load(screen, "showOutput") || false);
+  const [summaryIsViewed, setSummaryIsViewed] = useState();
   const fileInput = useRef(null);
   const [fileName, setFileName] = useState(null);
 
@@ -100,7 +102,7 @@ export default function Home() {
 
       <div className={showOutput ? "output active mt-30 pb-20 w-full" : "output mt-30 pb-20"} id="output">
         <div className="flex flex-col items-center justify-center">
-          {console.log({ pdfUrl })}
+          {/* {console.log({ pdfUrl })} */}
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
             <Page pageNumber={pageNumber} />
           </Document>
@@ -133,7 +135,26 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="w-4/6 mt-20">
+              {summaryIsViewed ? (
+                <div className="flex w-4/6 bg-white p-4 shadow-xl rounded-lg mt-20 justify-center">
+                  <p className="text-base tablet:text-lg text-gray-500 leading-5">
+                    <Typewriter
+                      onInit={(typewriter) => {
+                        typewriter.typeString(summary).start();
+                      }}
+                      options={{ delay: 25 }}
+                    />
+                  </p>
+                </div>
+              ) : (
+                <button
+                  className="bg-[#3B2667] hover:bg-[#4e3b76] text-white font-bold py-2 px-4 mt-20 rounded-full"
+                  onClick={() => setSummaryIsViewed(true)}
+                >
+                  View Candidates Summary
+                </button>
+              )}
+              <div className="w-4/6 mt-10">
                 <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
                 <div className="flex flex-row flex-wrap gap-6 mt-4 ">
                   {skills &&
@@ -147,7 +168,6 @@ export default function Home() {
                     })}
                 </div>
               </div>
-              <div>summary: {summary}</div>
             </>
           ) : (
             <AnalysisSectionLoader />
