@@ -8,7 +8,7 @@ export function scrollToSection(id) {
 export function showErr(text) {
   GlobalToast.fire({
     icon: "error",
-    title: `Error: ${text}`,
+    title: text,
     timer: 3000,
   });
 }

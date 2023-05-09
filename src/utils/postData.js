@@ -38,7 +38,7 @@ export default async function postData(
     });
     const data = await res.json();
     if (res.status === 200) {
-      console.log("Success:", data);
+      // console.log("Success:", data);
 
       setName && setName(data.name);
       setEmail && setEmail(data.email);
