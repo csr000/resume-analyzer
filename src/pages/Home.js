@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <div className="h-full w-full flex flex-col items-center">
-      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-9/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
+      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-11/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
@@ -101,43 +101,43 @@ export default function Home() {
       <h2 className="my-5 tablet:my-10 xl tablet:text-2xl text-gray-500">Upload a resume to start</h2>
 
       <div className={showOutput ? "output active mt-30 pb-20 w-full" : "output mt-30 pb-20"} id="output">
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center tablet:w-4/5 w-11/12 ">
           {/* {console.log({ pdfUrl })} */}
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
             <Page pageNumber={pageNumber} />
           </Document>
-          <h3 className="font-bold text-5xl my-10" style={{ color: "#3B2667" }}>
+          <h3 className="font-bold tablet:text-5xl text-3xl my-10" style={{ color: "#3B2667" }}>
             Resume Analysis
           </h3>
           {name ? (
             <>
-              <div className="w-4/6 grid grid-cols-2 gap-2 mt-10">
+              <div className="desktop:w-4/6 grid grid-cols-2 gap-2 tablet:mt-10 justify-center items-center">
                 <div className="flex flex-col gap-0 ">
-                  <div className="h-12 mb-5">
-                    <p className="text-lg font-bold">Name:</p>
-                    <p className="mt-0.5 mb-1">{name}</p>
+                  <div className="h-12 mb-10">
+                    <p className="tablet:text-lg font-bold">Name:</p>
+                    <p className="mt-0.5 mb-1 tablet:text-base text-sm">{name}</p>
                   </div>
 
-                  <div className="h-12 mb-5">
-                    <p className="text-lg font-bold">Location:</p>
-                    <p className="mt-0.5 mb-1">{location}</p>
+                  <div className="h-12 mb-10">
+                    <p className="tablet:text-lg font-bold">Location:</p>
+                    <p className="mt-0.5 mb-1 tablet:text-base text-sm">{location}</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-0">
-                  <div className="h-12 mb-5">
-                    <p className="text-lg font-bold">Mail:</p>
-                    <p className="mt-0.5 mb-1">{email}</p>
+                  <div className="h-12 mb-10">
+                    <p className="tablet:text-lg font-bold">Mail:</p>
+                    <p className="mt-0.5 mb-1 tablet:text-base text-sm">{email}</p>
                   </div>
 
-                  <div className="h-12 mb-5">
-                    <p className="text-lg font-bold">Education:</p>
-                    <p className="mt-0.5 mb-1">{education}</p>
+                  <div className="h-12 mb-10">
+                    <p className="tablet:text-lg font-bold">Education:</p>
+                    <p className="mt-0.5 mb-1 tablet:text-base text-sm">{education}</p>
                   </div>
                 </div>
               </div>
               {summaryIsViewed ? (
-                <div className="flex w-4/6 bg-white p-4 shadow-xl rounded-lg mt-20 justify-center">
-                  <p className="text-base tablet:text-lg text-gray-500 leading-5">
+                <div className="flex desktop:w-5/6 bg-white p-4 shadow-xl rounded-lg mt-20 justify-center">
+                  <p className="text-sm tablet:text-lg text-gray-500 leading-5 ">
                     <Typewriter
                       onInit={(typewriter) => {
                         typewriter.typeString(summary).start();
@@ -154,15 +154,15 @@ export default function Home() {
                   View Candidates Summary
                 </button>
               )}
-              <div className="w-4/6 mt-10">
-                <h4 className="font-bold text-2xl mt-10 text-gray-700">Relevant Skills</h4>
+              <div className="desktop:w-5/6 tablet:mt-10 mt-4">
+                <h4 className="font-bold tablet:text-2xl text-xl mt-10 text-gray-700">Relevant Skills</h4>
                 <div className="flex flex-row flex-wrap gap-6 mt-4 ">
                   {skills &&
                     skills.map((item, index) => {
                       return (
-                        <div className="flex flex-row items-center border rounded-xl p-2 gap-4 border-black mt-1">
-                          <p className="text-sm">{item}</p>
-                          <AiOutlineClose onClick={() => setSkills(skills.filter((_, i) => i !== index))} />
+                        <div className="flex flex-row items-center border tablet:rounded-xl rounded-lg p-2 tablet:gap-4 gap-2 border-black mt-1">
+                          <p className="tablet:text-sm text-xs">{item}</p>
+                          <AiOutlineClose size={14} onClick={() => setSkills(skills.filter((_, i) => i !== index))} />
                         </div>
                       );
                     })}

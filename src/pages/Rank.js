@@ -70,18 +70,11 @@ export default function Rank() {
 
   return (
     <div className="h-full w-full flex flex-col items-center justify-center">
-      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-9/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
+      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-11/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
-          <input
-            type="file"
-            accept="application/pdf"
-            multiple={true}
-            onChange={handleFileSelect}
-            ref={fileInput}
-            style={{ display: "none" }}
-          />
+          <input type="file" accept="application/pdf" multiple={true} onChange={handleFileSelect} ref={fileInput} style={{ display: "none" }} />
           <button
             onClick={() => fileInput.current.click()}
             className="border-0 bg-transparent underline text-2xl tablet:text-3xl capitalize"
@@ -98,7 +91,7 @@ export default function Rank() {
           value={jobDesc}
           onChange={(e) => setJobDesc(e.target.value)}
           placeholder="PLEASE KEY IN JOB DESCRIPTION AND CLICK ON THE BUTTON TO RANK THE RESUMES"
-          className="border tablet:mt-5 w-9/12 tablet:w-3/5 h-48 outline-none p-5"
+          className="border tablet:mt-5 w-11/12 tablet:w-3/5 h-48 outline-none p-5"
         />
       </div>
       <button
@@ -116,7 +109,7 @@ export default function Rank() {
       </button>
       <h2 className="my-5 tablet:my-10 xl tablet:text-2xl text-gray-500">Upload multiple resumes to start </h2>
 
-      <div id="output" className={showOutput ? "output active w-11/12" : "output"}>
+      <div id="output" className={showOutput ? "output active w-full" : "output"}>
         <div className="w-11/12 mt-10 pb-20">
           <CacheProvider value={muiCache}>
             <MUIDataTable title={"RANK ORDER"} data={resumeData} columns={columns} options={options} />

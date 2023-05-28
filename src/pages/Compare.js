@@ -46,7 +46,7 @@ export default function Compare() {
 
   return (
     <div className="h-full w-full flex flex-col items-center justify-center">
-      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-9/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
+      <div className="uploadContainer mt-[-40px] tablet:mt-[-30px] w-11/12 tablet:w-3/5 h-72 tablet:h-96 rounded-sm flex flex-col items-center justify-center">
         <BsCloudUpload size={100} color="#483EA8" />
         <div className="flex flex-col gap-5">
           {/* <h3>Drag & drop files or </h3> */}
@@ -67,7 +67,7 @@ export default function Compare() {
           value={jobDesc}
           onChange={(e) => setJobDesc(e.target.value)}
           placeholder="PLEASE KEY IN JOB DESCRIPTION AND CLICK ON THE BUTTON TO COMPARE THE RESUMES"
-          className="border tablet:mt-5 w-9/12 tablet:w-3/5 h-48 outline-none p-5"
+          className="border tablet:mt-5 w-11/12 tablet:w-3/5 h-48 outline-none p-5"
         />
       </div>
       <button
@@ -87,8 +87,8 @@ export default function Compare() {
       </button>
       <h2 className="my-5 tablet:my-10 xl tablet:text-2xl text-gray-500">Upload multiple resumes to start </h2>
 
-      <div className={showOutput ? "output active my-28 w-full flex flex-col" : "output my-28"} id="output">
-        <div className="mt-30 mx-96 w-10/12">
+      <div className={showOutput ? "output active tablet:m-10 w-full flex flex-col" : "output "} id="output">
+        <div className="mt-30 mx-96 w-11/12">
           <h3 className="font-bold text-2xl tablet:text-3xl mt-10" style={{ color: "#3B2667" }}>
             Final Result
           </h3>
@@ -104,7 +104,7 @@ export default function Compare() {
           )}
         </div>
         {compare && (
-          <div className="mt-30 mx-96 w-10/12">
+          <div className="mt-30 mx-96 w-11/12">
             <h3 className="font-bold text-2xl tablet:text-3xl mt-10" style={{ color: "#3B2667" }}>
               Comparison
             </h3>
